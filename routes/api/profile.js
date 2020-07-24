@@ -66,5 +66,19 @@ router.put(
 // @route    DELETE api/profile
 // @desc     Edit user profile
 // @access   Private
+router.delete("/", auth, async (req, res) => {
+  try {
+    // delete user
+    await User.findByIdAndRemove({ _id: req.user.id });
+
+    // delete user posts
+    // to be implemented
+
+    res.json({ msg: "User deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
