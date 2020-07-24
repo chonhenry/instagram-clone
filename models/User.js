@@ -32,6 +32,14 @@ const UserSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
+  posts: [
+    {
+      post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "posts",
+      },
+    },
+  ],
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

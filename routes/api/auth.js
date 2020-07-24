@@ -10,10 +10,11 @@ const User = require("../../models/User");
 
 // @route     GET /api/auth
 // @desc      Get auth user
-// @access    Public
+// @access    Private
 router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    //const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id, "_id username");
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -78,6 +79,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
+          username: user.username,
         },
       };
 
@@ -87,7 +89,6 @@ router.post(
         { expiresIn: "10h" },
         (err, token) => {
           if (err) return err;
-          console.log(req);
           res.json({ token });
         }
       );
@@ -139,6 +140,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
+          username: user.username,
         },
       };
 
