@@ -16,10 +16,10 @@ router.put("/follow/:user_id", auth, async (req, res) => {
     const user = await User.findById(req.user.id);
     const follow_user = await User.findById(req.params.user_id);
 
-    // check if the user has already been follow
+    // check if the user has already been followed
     if (
       follow_user.followers.filter(
-        (follower) => follower.user.toString() === req.user.id
+        (follower) => follower.user_id.toString() === req.user.id
       ).length > 0
     ) {
       return res
@@ -53,32 +53,31 @@ router.put("/unfollow/:user_id", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     const unfollow_user = await User.findById(req.params.user_id);
-    console.log(req.params.user_id);
 
-    // // check if the user has already been follow
-    // if (
-    //   unfollow_user.followers.filter(
-    //     (follower) => follower.user.toString() === req.user.id
-    //   ).length === 0
-    // ) {
-    //   return res.status(400).json({ msg: "You are not following this user" });
-    // }
+    // check if the user has already been followed
+    if (
+      unfollow_user.followers.filter(
+        (follower) => follower.user_id.toString() === req.user.id
+      ).length === 0
+    ) {
+      return res.status(400).json({ msg: "You are not following this user" });
+    }
 
-    // // Get remove index
-    // let removeIndex = user.following
-    //   .map((following) => following.user.toString())
-    //   .indexOf(req.params.user_id);
-    // user.following.splice(removeIndex, 1);
+    // Get remove index
+    let removeIndex = user.following
+      .map((following) => following.user_id.toString())
+      .indexOf(req.params.user_id);
+    user.following.splice(removeIndex, 1);
 
-    // removeIndex = unfollow_user.followers
-    //   .map((follower) => follower.user.toString())
-    //   .indexOf(req.params.user_id);
-    // unfollow_user.followers.splice(removeIndex, 1);
+    removeIndex = unfollow_user.followers
+      .map((follower) => follower.user_id.toString())
+      .indexOf(req.user.id);
+    unfollow_user.followers.splice(removeIndex, 1);
 
-    // await user.save();
-    // await unfollow_user.save();
+    await user.save();
+    await unfollow_user.save();
 
-    res.send("unfollow user");
+    res.json(user.following);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

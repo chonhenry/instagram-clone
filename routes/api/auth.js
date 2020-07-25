@@ -87,6 +87,9 @@ router.post(
         password,
         name,
         email,
+        posts: [],
+        following: [],
+        followers: [],
         //profileImg: req.file.path,
       });
 
