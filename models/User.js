@@ -42,17 +42,23 @@ const UserSchema = new mongoose.Schema({
   ],
   following: [
     {
-      user: {
+      user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
+      },
+      username: {
+        type: String,
       },
     },
   ],
   followers: [
     {
-      user: {
+      user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
+      },
+      username: {
+        type: String,
       },
     },
   ],
