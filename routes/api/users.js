@@ -8,36 +8,34 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 
-// @route     GET /api/users/me
-// @desc      Get current user profile
+// @route     PUT /api/users/follow/:user_id
+// @desc      follow a user
 // @access    Private
-router.get("/me", auth, async (req, res) => {
+router.put("/follow/:user_id", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
+    const user = await User.findById(req.user.id);
+    const follow_user = await User.findById(req.params.user_id);
+
+    // check if the user has already been follow
+    if (
+      follow_user.followers.filter(
+        (follower) => follower.user.toString() === req.user.id
+      ).length > 0
+    ) {
+      return res
+        .status(400)
+        .json({ msg: "You are already following this user" });
+    }
+
+    user.following.unshift({ user: req.params.user_id });
+    follow_user.followers.unshift({ user: req.user.id });
+
+    await user.save();
+    await follow_user.save();
+
+    res.send("follow user");
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route    GET api/users/:username
-// @desc     Get profile by username
-// @access   Public
-router.get("/user/:username", async (req, res) => {
-  try {
-    const profile = await Profile.findOne({
-      username: req.params.username,
-    });
-
-    if (!profile) return res.status(400).json({ msg: "Profile not found" });
-
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    // if (err.kind == "ObjectId") {
-    //   return res.status(400).json({ msg: "Profile not found" });
-    // }
     res.status(500).send("Server Error");
   }
 });

@@ -11,6 +11,10 @@ const PostSchema = new mongoose.Schema({
   caption: {
     type: String,
   },
+  img: {
+    type: String,
+    //required: true
+  },
   likes: [
     {
       user: {
@@ -35,11 +39,6 @@ const PostSchema = new mongoose.Schema({
       },
     },
   ],
-  img: {
-    type: String,
-    contentType: Buffer,
-    //required: true
-  },
 });
 
 module.exports = Post = mongoose.model("post", PostSchema);

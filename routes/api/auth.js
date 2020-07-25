@@ -47,7 +47,7 @@ router.get("/", auth, async (req, res) => {
 // @access    Public
 router.post(
   "/register",
-  upload.single("profileImg"),
+  //upload.single("profileImg"),
   [
     check("username", "Username is required").not().isEmpty(),
     check("name", "Name is required").not().isEmpty(),
@@ -58,8 +58,6 @@ router.post(
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
-    console.log(req.file);
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -89,7 +87,7 @@ router.post(
         password,
         name,
         email,
-        profileImg: req.file.path,
+        //profileImg: req.file.path,
       });
 
       // encrypt password
