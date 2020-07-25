@@ -4,7 +4,27 @@ const bcrypt = require("bcryptjs");
 const auth = require("../../middleware/auth");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const multer = require("multer");
 const { check, validationResult } = require("express-validator");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 const User = require("../../models/User");
 
@@ -27,6 +47,7 @@ router.get("/", auth, async (req, res) => {
 // @access    Public
 router.post(
   "/register",
+  upload.single("profileImg"),
   [
     check("username", "Username is required").not().isEmpty(),
     check("name", "Name is required").not().isEmpty(),
@@ -37,6 +58,8 @@ router.post(
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
+    console.log(req.file);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -66,6 +89,7 @@ router.post(
         password,
         name,
         email,
+        profileImg: req.file.path,
       });
 
       // encrypt password
@@ -146,8 +170,8 @@ router.post(
 
       jwt.sign(
         payload,
-        // config.get("jwtSecret"),
-        { expiresIn: 360000 },
+        config.get("jwtSecret"),
+        // { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
