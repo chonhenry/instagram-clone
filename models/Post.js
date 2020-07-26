@@ -8,6 +8,9 @@ const PostSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
+  createdByUsername: {
+    type: String,
+  },
   caption: {
     type: String,
   },
