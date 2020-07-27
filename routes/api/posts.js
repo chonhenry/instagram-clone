@@ -118,4 +118,30 @@ router.put("/unlike/:post_id", auth, async (req, res) => {
   res.json(post);
 });
 
+// @route     PUT /api/posts/comment/:post_id
+// @desc      add comment to a post
+// @access    private
+router.put("/comment/:post_id", auth, async (req, res) => {
+  const post = await Post.findById(req.params.post_id);
+
+  post.comments.unshift({
+    user_id: req.user.id,
+    username: req.user.username,
+    text: req.body.text,
+  });
+
+  await post.save();
+
+  res.json(post);
+});
+
+// @route     PUT /api/posts/remove_comment/:post_id
+// @desc      remove comment from a post
+// @access    private
+router.put("/remove_comment/:post_id", auth, async (req, res) => {
+  const post = await Post.findById(req.params.post_id);
+
+  res.json(post);
+});
+
 module.exports = router;
