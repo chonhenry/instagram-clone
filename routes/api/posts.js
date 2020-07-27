@@ -135,13 +135,41 @@ router.put("/comment/:post_id", auth, async (req, res) => {
   res.json(post);
 });
 
-// @route     PUT /api/posts/remove_comment/:post_id
+// @route     PUT /api/posts/remove_comment/post_id=:post_id&comment_id=:comment_id
 // @desc      remove comment from a post
 // @access    private
-router.put("/remove_comment/:post_id", auth, async (req, res) => {
-  const post = await Post.findById(req.params.post_id);
+router.put(
+  "/remove_comment/post_id=:post_id&comment_id=:comment_id",
+  auth,
+  async (req, res) => {
+    const post = await Post.findById(req.params.post_id);
 
-  res.json(post);
-});
+    // Pull out comment
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+
+    // Make sure comment exists
+    if (!comment) {
+      return res.status(404).json({ msg: "Comment does not exist" });
+    }
+
+    // Check user
+    if (comment.user_id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    // Get remove index
+    const removeIndex = post.comments
+      .map((comment) => comment.user_id.toString())
+      .indexOf(req.user.id);
+
+    post.comments.splice(removeIndex, 1);
+
+    await post.save();
+
+    res.json(post.comments);
+  }
+);
 
 module.exports = router;
