@@ -64,7 +64,7 @@ router.put(
 );
 
 // @route    DELETE api/profile
-// @desc     Edit user profile
+// @desc     delete user profile
 // @access   Private
 router.delete("/", auth, async (req, res) => {
   try {
