@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Redirect } from "react-router-dom";
 import ig from "../../../assets/image/instagram.png";
 import "./LoginForm.scss";
 
@@ -13,14 +14,21 @@ const LoginForm = () => {
       <img src={ig} />
 
       <form onSubmit={(e) => onSubmit(e)}>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input type="submit" value="sdv" />
+        <input className="email-input" type="email" placeholder="Email" />
+        <input
+          className="password-input"
+          type="password"
+          placeholder="Password"
+        />
+        <input className="btn-submit" type="submit" value="Log In" />
       </form>
 
-      <div>line</div>
+      <div className="divider-line"></div>
 
-      <div>s</div>
+      <div className="to-signup">
+        Don't have an account?
+        <Link to="/register"> Sign up</Link>
+      </div>
     </div>
   );
 };
