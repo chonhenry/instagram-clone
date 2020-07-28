@@ -1,0 +1,21 @@
+.login-form {
+  border: 1px solid #dbdbdb;
+  background-color: white;
+  height: 400px;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 180px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
