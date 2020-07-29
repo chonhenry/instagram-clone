@@ -1,14 +1,14 @@
-.login-page {
+.signup-page {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f4f4f4;
 
-  .login-form {
+  .signup-form {
     border: 1px solid #dbdbdb;
     background-color: white;
-    height: 400px;
+    height: 510px;
     width: 340px;
     display: flex;
     flex-direction: column;
@@ -39,7 +39,13 @@
       }
 
       .email-input {
-        margin: 30px 0 10px 0;
+        margin: 30px 0 6px 0;
+      }
+
+      .name-input,
+      .username-input,
+      .password-input {
+        margin-bottom: 6px;
       }
 
       .btn-submit {
@@ -59,7 +65,7 @@
       margin: 24px 0 24px 0;
     }
 
-    .to-signup {
+    .to-login {
       a {
         color: #0095f6;
         text-decoration: none;

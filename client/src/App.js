@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
+import Signup from "./pages/Signup/Signup";
 import "./App.css";
 
 const App = () => (
   <Router>
     <Switch>
       <Route exact path="/" component={Login} />
-      <Route exact path="/register" component={Register} />
+      <Route exact path="/signup" component={Signup} />
     </Switch>
   </Router>
 );
