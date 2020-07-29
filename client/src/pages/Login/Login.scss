@@ -67,3 +67,25 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .login-page {
+    .login-form {
+      border: none;
+      background-color: #f4f4f4;
+      width: 100%;
+
+      form {
+        width: 100%;
+
+        input {
+          width: 80%;
+        }
+      }
+
+      .divider-line {
+        width: 80%x;
+      }
+    }
+  }
+}
