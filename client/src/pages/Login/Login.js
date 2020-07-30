@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
+import { login } from "../../actions/auth";
 
 import "./Login.scss";
 
-const Login = () => {
+const Login = ({ login, authError, isAuthenticated, loading }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,44 +21,62 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    login(email, password);
   };
 
-  return (
-    <div className="login-page">
-      <div className="login-form">
-        <img src={ig} />
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
-        <form onSubmit={(e) => onSubmit(e)}>
-          <input
-            className="email-input"
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={(e) => onChange(e)}
-            required
-          />
-          <input
-            className="password-input"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={(e) => onChange(e)}
-            required
-          />
-          <input className="btn-submit" type="submit" value="Log In" />
-        </form>
+  if (loading) {
+    return <div>loading</div>;
+  } else {
+    return (
+      <div className="login-page">
+        <div className="login-form">
+          <img src={ig} />
 
-        <div className="divider-line"></div>
+          <form onSubmit={(e) => onSubmit(e)}>
+            <input
+              className="email-input"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={(e) => onChange(e)}
+              required
+            />
+            <input
+              className="password-input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => onChange(e)}
+              required
+            />
+            <input className="btn-submit" type="submit" value="Log In" />
+          </form>
 
-        <div className="to-signup">
-          Don't have an account?
-          <Link to="/signup"> Sign up</Link>
+          {authError ? <div className="error-message">{authError}</div> : null}
+
+          <div className="divider-line"></div>
+
+          <div className="to-signup">
+            Don't have an account?
+            <Link to="/signup"> Sign up</Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  authError: state.auth.authErrorm,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading,
+});
+
+export default connect(mapStateToProps, { login })(Login);
