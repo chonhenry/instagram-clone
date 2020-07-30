@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
+import Loading from "../../components/Loading/Loading";
 import { register } from "../../actions/auth";
 
 import "./Signup.scss";
@@ -38,7 +39,7 @@ const Signup = ({ register, authError, isAuthenticated, loading }) => {
   }
 
   if (loading) {
-    return <div>loading</div>;
+    return <Loading />;
   } else {
     return (
       <div className="signup-page">
@@ -104,7 +105,7 @@ const Signup = ({ register, authError, isAuthenticated, loading }) => {
 
           <div className="to-login">
             Have an account?
-            <Link to="/"> Log In</Link>
+            <Link to="/login"> Log In</Link>
           </div>
         </div>
       </div>

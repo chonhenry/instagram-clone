@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
 import { login } from "../../actions/auth";
+import Loading from "../../components/Loading/Loading";
 
 import "./Login.scss";
 
@@ -29,7 +30,7 @@ const Login = ({ login, authError, isAuthenticated, loading }) => {
   }
 
   if (loading) {
-    return <div>loading</div>;
+    return <Loading />;
   } else {
     return (
       <div className="login-page">
@@ -70,7 +71,6 @@ const Login = ({ login, authError, isAuthenticated, loading }) => {
       </div>
     );
   }
-
 };
 
 const mapStateToProps = (state) => ({
