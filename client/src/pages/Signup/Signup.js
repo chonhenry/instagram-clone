@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
+import { register } from "../../actions/auth";
 
 import "./Signup.scss";
 
-const Signup = () => {
+const Signup = ({ register, authError }) => {
   const [formData, setFromData] = useState({
     email: "",
     name: "",
@@ -12,6 +14,8 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const { email, name, username, password, confirmPassword } = formData;
 
@@ -21,7 +25,12 @@ const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (password !== confirmPassword) {
+      setErrorMessage(true);
+    } else {
+      setErrorMessage(false);
+      register({ name, username, email, password });
+    }
   };
 
   return (
@@ -75,8 +84,14 @@ const Signup = () => {
             onChange={(e) => onChange(e)}
             required
           />
-          <input className="btn-submit" type="submit" value="Log In" />
+          <input className="btn-submit" type="submit" value="Sign up" />
         </form>
+
+        {errorMessage ? (
+          <div className="error-message">Passwords don't match</div>
+        ) : null}
+
+        {authError ? <div className="error-message">{authError}</div> : null}
 
         <div className="divider-line"></div>
 
@@ -89,4 +104,6 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state) => ({ authError: state.auth.authError });
+
+export default connect(mapStateToProps, { register })(Signup);

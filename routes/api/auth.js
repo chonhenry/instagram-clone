@@ -71,14 +71,14 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ erros: [{ msg: "Username is already taken" }] });
+          .json({ errors: [{ msg: "Username is already taken" }] });
       }
 
       user = await User.findOne({ email });
       if (user) {
         return res
           .status(400)
-          .json({ erros: [{ msg: "Email is already taken" }] });
+          .json({ errors: [{ msg: "Email is already taken" }] });
       }
 
       // create new user
