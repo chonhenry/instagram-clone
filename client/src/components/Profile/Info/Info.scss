@@ -1,0 +1,146 @@
+.info-section {
+  margin: 54px auto 0 auto;
+  padding: 40px;
+  // height: 230px;
+  //   background-color: red;
+  border-bottom: 1px solid lightgray;
+  max-width: 900px;
+
+  .top-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .profile-img {
+      width: 250px;
+      height: 150px;
+      //   background-color: red;
+
+      img {
+        width: 150px;
+      }
+    }
+
+    .info-container {
+      // border: 1px solid black;
+      width: 540px;
+
+      .username-edit-profile {
+        display: flex;
+        align-items: center;
+        margin: 6px 0 6px 0;
+
+        .username {
+          font-size: 28px;
+        }
+
+        .edit-profile {
+          color: black;
+          text-decoration: none;
+          margin-left: 18px;
+          padding: 3px 6px;
+          border: 1px solid lightgray;
+          border-radius: 4px;
+          font-size: 14px;
+        }
+      }
+
+      .posts-followers-following-count {
+        display: flex;
+        align-items: center;
+        margin: 9px 0 6px 0;
+
+        .posts-count,
+        .followers-count {
+          margin-right: 21px;
+        }
+      }
+
+      .name-bio {
+        .name {
+          margin: 9px 0 6px 0;
+        }
+
+        .bio {
+          margin: 9px 0 6px 0;
+        }
+      }
+    }
+  }
+
+  .info-container-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .info-section {
+    // height: 500px;
+    padding: 20px 15px 0 15px;
+
+    .top-container {
+      align-items: center;
+
+      .profile-img {
+        width: 100px;
+        height: 100px;
+
+        img {
+          width: 100px;
+        }
+      }
+
+      .info-container {
+        display: flex;
+        align-items: center;
+
+        .username-edit-profile {
+          display: flex;
+          flex-direction: column;
+          align-items: unset;
+          // margin: 6px 0 6px 0;
+          justify-content: space-around;
+          height: 100px;
+          padding-left: 20px;
+
+          .username {
+            font-size: 21px;
+            // margin-bottom: 10px;
+          }
+
+          .edit-profile {
+            color: black;
+            text-decoration: none;
+            margin-left: 0;
+            text-align: center;
+            padding: 6px 6px;
+            width: 100%;
+          }
+        }
+
+        .posts-followers-following-count {
+          display: none;
+        }
+
+        .name-bio {
+          display: none;
+        }
+      }
+    }
+
+    .info-container-mobile {
+      margin: 30px 0 0 0;
+      display: block;
+      margin-top: 30px;
+
+      .posts-followers-following-count-mobile {
+        // border: 1px solid darkgray;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+  }
+}
