@@ -6,8 +6,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  TOGGLE_ON_DROPDOWN,
-  TOGGLE_OFF_DROPDOWN,
+  LOGOUT,
 } from "./type";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -85,4 +84,11 @@ export const login = (email, password) => async (dispatch) => {
       payload: err.response.data.errors[0].msg,
     });
   }
+};
+
+// Logout user
+export const logout = () => {
+  return {
+    type: LOGOUT,
+  };
 };

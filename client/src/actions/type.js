@@ -6,3 +6,4 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const TOGGLE_ON_DROPDOWN = "TOGGLE_ON_DROPDOWN";
 export const TOGGLE_OFF_DROPDOWN = "TOGGLE_OFF_DROPDOWN";
+export const LOGOUT = "LOGOUT";

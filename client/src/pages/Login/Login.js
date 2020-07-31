@@ -22,7 +22,6 @@ const Login = ({ login, authError, isAuthenticated, loading }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     login(email, password);
   };
 
@@ -75,7 +74,7 @@ const Login = ({ login, authError, isAuthenticated, loading }) => {
 };
 
 const mapStateToProps = (state) => ({
-  authError: state.auth.authErrorm,
+  authError: state.auth.authError,
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
 });

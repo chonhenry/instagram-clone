@@ -28,9 +28,10 @@ const App = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          {/* <PrivateRoute exact path="/" component={Main} /> */}
-          <Route exact path="/" component={Main} />
-          <PrivateRoute exact path="/:username" component={Profile} />
+          <PrivateRoute exact path="/" component={Main} />
+          {/* <Route exact path="/" component={Main} /> */}
+          <Route exact path="/:username" component={Profile} />
+          {/* <PrivateRoute exact path="/:username" component={Profile} /> */}
           {/* <PrivateRoute exact path="/" component={Navbar} /> */}
         </Switch>
       </Router>
