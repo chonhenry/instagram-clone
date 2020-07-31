@@ -49,10 +49,14 @@
       .profile {
         position: absolute;
         right: 0;
-        width: 30px;
-        height: 30px;
+        width: 36px;
+        height: 36px;
         border-radius: 35px;
         background-color: red;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
