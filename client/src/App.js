@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Main from "./pages/Main/Main";
+import Profile from "./pages/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 import "./App.css";
@@ -25,11 +26,12 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Switch>
-          {/* <PrivateRoute exact path="/" component={Main} /> */}
-          {/* <PrivateRoute exact path="/" component={Navbar} /> */}
-          <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          {/* <PrivateRoute exact path="/" component={Main} /> */}
+          <Route exact path="/" component={Main} />
+          <PrivateRoute exact path="/:username" component={Profile} />
+          {/* <PrivateRoute exact path="/" component={Navbar} /> */}
         </Switch>
       </Router>
     </Provider>

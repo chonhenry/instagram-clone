@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import ig from "../../assets/image/instagram.png";
+import Dropdown from "../Dropdown/Dropdown";
 
 import "./Navbar.scss";
 
@@ -22,6 +23,7 @@ const Navbar = () => {
 
         <div className="profile-img-container">
           <img className="profile" />
+          <Dropdown />
         </div>
       </div>
     </div>

@@ -35,7 +35,6 @@ const Login = ({ login, authError, isAuthenticated, loading }) => {
   } else {
     return (
       <div className="login-page">
-        <Navbar />
         <div className="login-form">
           <img src={ig} />
 

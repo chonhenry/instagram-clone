@@ -1,0 +1,23 @@
+.dropdown {
+  position: absolute;
+  width: 150px;
+  height: 72px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+
+  right: 12px;
+  top: 54px;
+  display: flex;
+  flex-direction: column;
+
+  div {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    &:hover {
+      background-color: #f4f4f4;
+      cursor: pointer;
+    }
+  }
+}
