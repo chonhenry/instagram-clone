@@ -1,15 +1,51 @@
 import React from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-
+import { loadUser } from "../../../actions/auth";
+import avatar from "../../../assets/image/avatar.png";
 import "./Info.scss";
 
-const Info = ({ user }) => {
+const Info = ({ user, loadUser }) => {
+  const onChange = async (e) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = async function (e) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify({
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        profileImg: e.target.result,
+      });
+
+      try {
+        const res = await axios.put("/api/profile", body, config);
+        loadUser();
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    };
+  };
+
   return (
     <section className="info-section">
       <div className="top-container">
         <div className="profile-img">
-          <img src="https://galileoenrichment.com/wp-content/uploads/2020/03/man.png" />
+          <img src={user.profileImg ? user.profileImg : avatar} />
+          <form className="profile-image-upload">
+            <input
+              type="file"
+              accept="image/jpeg,image/png"
+              onChange={(e) => onChange(e)}
+            />
+          </form>
         </div>
 
         <div className="info-container">
@@ -81,4 +117,4 @@ const Info = ({ user }) => {
 //   };
 // };
 
-export default connect(null)(Info);
+export default connect(null, { loadUser })(Info);

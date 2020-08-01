@@ -45,11 +45,11 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    let { username, email, name, bio, gender } = req.body;
+    let { username, email, name, bio, gender, profileImg } = req.body;
 
     try {
       const filter = { _id: req.user.id };
-      const update = { username, email, name, bio, gender };
+      const update = { username, email, name, bio, gender, profileImg };
 
       let profile = await User.findOneAndUpdate(filter, update, {
         new: true,

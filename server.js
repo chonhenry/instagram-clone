@@ -7,8 +7,9 @@ const app = express();
 connectDB();
 
 // Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json({ extended: false, limit: "50mb" }));
 app.use("/uploads", express.static("uploads"));
+app.use(express.urlencoded({ limit: "50mb" }));
 
 app.get("/", (req, res) => res.send("API running"));
 
@@ -17,6 +18,10 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
+app.get("http://product.dangdang.com/28977365.html", (req, res) => {
+  console.log(res);
+  res.send();
+});
 
 const PORT = process.env.PORT || 5000;
 
