@@ -8,6 +8,22 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 
+// @route     GET /api/users/:username
+// @desc      find a user
+// @access    Public
+router.get("/:username", async (req, res) => {
+  try {
+    const user = await User.findOne(
+      { username: req.params.username },
+      "-password"
+    );
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route     PUT /api/users/follow/:user_id
 // @desc      follow a user
 // @access    Private

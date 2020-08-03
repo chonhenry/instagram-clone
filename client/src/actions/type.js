@@ -11,6 +11,10 @@ export const LOGOUT = "LOGOUT";
 export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
 export const UPDATE_FAIL = "UPDATE_FAIL";
 
+// find user
+export const FIND_USER_SUCCESS = "FIND_USER_SUCCESS";
+export const FIND_USER_FAIL = "FIND_USER_FAIL";
+
 // utils
 export const TOGGLE_ON_DROPDOWN = "TOGGLE_ON_DROPDOWN";
 export const TOGGLE_OFF_DROPDOWN = "TOGGLE_OFF_DROPDOWN";

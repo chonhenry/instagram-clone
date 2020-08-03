@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { loadUser } from "../../../actions/auth";
-import avatar from "../../../assets/image/avatar.png";
+import avatar from "../../../assets/image/avatar3.jpg";
 import "./Info.scss";
 
-const Info = ({ user, loadUser }) => {
+const Info = ({ foundUser, loggedInUser, loadUser, isAuthenticated }) => {
+  const [imgUploading, setImgUploading] = useState(false);
+  const [authorization, setAuthorization] = useState(false);
+  const [user, setUser] = useState(foundUser);
+
+  useEffect(() => {
+    if (loggedInUser !== null) {
+      if (loggedInUser.username === foundUser.username) {
+        setAuthorization(true);
+      } else {
+        setAuthorization(false);
+      }
+    }
+  }, [foundUser]);
+
   const onChange = async (e) => {
     const reader = new FileReader();
 
     reader.readAsDataURL(e.target.files[0]);
+
     reader.onload = async function (e) {
       const config = {
         headers: {
@@ -18,16 +33,19 @@ const Info = ({ user, loadUser }) => {
         },
       };
 
+      setImgUploading(true);
+
       const body = JSON.stringify({
-        name: user.name,
-        username: user.username,
-        email: user.email,
+        name: foundUser.name,
+        username: foundUser.username,
+        email: foundUser.email,
         profileImg: e.target.result,
       });
 
       try {
-        const res = await axios.put("/api/profile", body, config);
-        loadUser();
+        await axios.put("/api/profile", body, config);
+        await loadUser();
+        setImgUploading(false);
       } catch (err) {
         console.log(err.response.data);
       }
@@ -38,30 +56,37 @@ const Info = ({ user, loadUser }) => {
     <section className="info-section">
       <div className="top-container">
         <div className="profile-img">
-          <img src={user.profileImg ? user.profileImg : avatar} />
-          <form className="profile-image-upload">
-            <input
-              type="file"
-              accept="image/jpeg,image/png"
-              onChange={(e) => onChange(e)}
-            />
-          </form>
+          <img
+            src={foundUser.profileImg ? foundUser.profileImg : avatar}
+            className={imgUploading ? "img-uploading" : ""}
+          />
+          {authorization && (
+            <form className="profile-image-upload">
+              <input
+                type="file"
+                accept="image/jpeg,image/png"
+                onChange={(e) => onChange(e)}
+              />
+            </form>
+          )}
         </div>
 
         <div className="info-container">
           <div className="username-edit-profile">
-            <span className="username">{"user.username"}</span>
-            <Link className="edit-profile" to="/">
-              Edit Profile
-            </Link>
+            <span className="username">{foundUser.username}</span>
+            {authorization && (
+              <Link className="edit-profile" to="/">
+                Edit Profile
+              </Link>
+            )}
           </div>
 
           <div className="posts-followers-following-count">
-            {/* <span className="posts-count">{`${user.posts.length} posts`}</span>
-            <span className="followers-count">{`${user.followers.length} followers`}</span>
-            <span className="following-count">{`${user.following.length} following`}</span> */}
+            <span className="posts-count">{`${foundUser.posts.length} posts`}</span>
+            <span className="followers-count">{`${foundUser.followers.length} followers`}</span>
+            <span className="following-count">{`${foundUser.following.length} following`}</span>
 
-            <span className="posts-count">
+            {/* <span className="posts-count">
               <strong>1</strong>
               {` posts`}
             </span>
@@ -72,14 +97,14 @@ const Info = ({ user, loadUser }) => {
             <span className="following-count">
               <strong>135</strong>
               {` following`}
-            </span>
+            </span> */}
           </div>
 
           <div className="name-bio">
             <div className="name">
-              <strong>{"user.name"}</strong>
+              <strong>{foundUser.name}</strong>
             </div>
-            <div className="bio">{"user.bio"}</div>
+            <div className="bio">{foundUser.bio}</div>
           </div>
         </div>
       </div>
@@ -111,10 +136,11 @@ const Info = ({ user, loadUser }) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.auth.user,
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    loggedInUser: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+};
 
-export default connect(null, { loadUser })(Info);
+export default connect(mapStateToProps, { loadUser })(Info);

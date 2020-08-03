@@ -53,6 +53,7 @@ router.put(
 
       let profile = await User.findOneAndUpdate(filter, update, {
         new: true,
+        useFindAndModify: false,
       });
 
       return res.json({ profile });

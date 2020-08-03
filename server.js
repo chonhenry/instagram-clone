@@ -18,10 +18,6 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
-app.get("http://product.dangdang.com/28977365.html", (req, res) => {
-  console.log(res);
-  res.send();
-});
 
 const PORT = process.env.PORT || 5000;
 
