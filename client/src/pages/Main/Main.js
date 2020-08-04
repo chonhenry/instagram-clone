@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { connect } from "react-redux";
 
 import "./Main.scss";
 
-const Main = () => {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+const Main = ({ loading, user }) => {
+  return <div>{user && <Navbar />}</div>;
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    user: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps, {})(Main);

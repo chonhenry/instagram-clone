@@ -18,7 +18,7 @@ const Navbar = ({
 }) => {
   const onSearchSubmit = (e) => {
     e.preventDefault();
-    console.log("search");
+    // console.log("search");
   };
 
   const toggle_on_dropdown = () => {
@@ -46,11 +46,14 @@ const Navbar = ({
       </form>
 
       <div className="profile-img-container">
-        <img
-          onClick={toggle_on_dropdown}
-          className="profile"
-          src={user.profileImg}
-        />
+        {user && (
+          <img
+            onClick={toggle_on_dropdown}
+            className="profile"
+            src={user.profileImg}
+          />
+        )}
+
         {dropdown && <Dropdown />}
       </div>
     </div>

@@ -75,7 +75,7 @@ const Info = ({ foundUser, loggedInUser, loadUser, isAuthenticated }) => {
           <div className="username-edit-profile">
             <span className="username">{foundUser.username}</span>
             {authorization && (
-              <Link className="edit-profile" to="/">
+              <Link className="edit-profile" to="/account/edit">
                 Edit Profile
               </Link>
             )}

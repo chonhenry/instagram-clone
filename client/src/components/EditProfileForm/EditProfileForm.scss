@@ -1,0 +1,58 @@
+.edit-profile-form {
+  margin: 80px auto 0 auto;
+  max-width: 700px;
+  border: lightgray 1px solid;
+  background-color: white;
+  padding: 20px 0;
+
+  .form-container {
+    .form-section {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+
+      .label-container {
+        width: 90px;
+        margin-right: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+      }
+
+      .form-input {
+        width: 360px;
+        height: 33px;
+        padding-left: 10px;
+      }
+
+      .textarea-label-container {
+        width: 90px;
+        margin-right: 30px;
+      }
+
+      .form-textarea {
+        padding-top: 5px;
+        height: 100px;
+        resize: vertical;
+      }
+    }
+
+    .submit-button {
+      width: 63px;
+      height: 30px;
+      color: white;
+      padding: 2px 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #0095f6;
+      border: none;
+      border-radius: 3px;
+      margin: auto;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

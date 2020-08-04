@@ -27,7 +27,7 @@ const Profile = ({
       }
     }
     fetchData();
-  }, [loading]);
+  }, []);
 
   return (
     <div>
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
-    loading: state.user.loading,
+    loading: state.auth.loading,
     foundUser: state.user.user,
   };
 };
