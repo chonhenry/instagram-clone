@@ -5,24 +5,24 @@ import { loadUser } from "../../actions/auth";
 
 import "./EditProfileForm.scss";
 
-const EditProfileForm = ({
-  name,
-  username,
-  bio,
-  email,
-  isAuthenticated,
-  loadUser,
-}) => {
+const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    bio: "",
+    email: "",
+  });
+
   useEffect(() => {
     loadUser();
-  }, []);
 
-  const [formData, setFormData] = useState({
-    name: name,
-    username: username,
-    bio: bio,
-    email: email,
-  });
+    setFormData({
+      name: loading || !user ? "" : user.name,
+      username: loading || !user ? "" : user.username,
+      bio: loading || !user ? "" : user.bio,
+      email: loading || !user ? "" : user.email,
+    });
+  }, [loading]);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,6 +30,7 @@ const EditProfileForm = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(54644);
   };
 
   return (
@@ -112,11 +113,9 @@ const EditProfileForm = ({
 
 const mapStateToProps = (state) => {
   return {
-    name: state.auth.user.name,
-    username: state.auth.user.username,
-    email: state.auth.user.email,
-    bio: state.auth.user.bio,
+    user: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
+    loading: state.auth.loading,
   };
 };
 

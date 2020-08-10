@@ -6,7 +6,13 @@ import { loadUser } from "../../../actions/auth";
 import avatar from "../../../assets/image/avatar3.jpg";
 import "./Info.scss";
 
-const Info = ({ foundUser, loggedInUser, loadUser, isAuthenticated }) => {
+const Info = ({
+  foundUser,
+  loggedInUser,
+  loadUser,
+  isAuthenticated,
+  loading,
+}) => {
   const [imgUploading, setImgUploading] = useState(false);
   const [authorization, setAuthorization] = useState(false);
   const [user, setUser] = useState(foundUser);
@@ -15,11 +21,13 @@ const Info = ({ foundUser, loggedInUser, loadUser, isAuthenticated }) => {
     if (loggedInUser !== null) {
       if (loggedInUser.username === foundUser.username) {
         setAuthorization(true);
+        console.log("true");
       } else {
         setAuthorization(false);
+        console.log("false");
       }
     }
-  }, [foundUser]);
+  }, [foundUser, loggedInUser]);
 
   const onChange = async (e) => {
     const reader = new FileReader();
@@ -140,6 +148,7 @@ const mapStateToProps = (state) => {
   return {
     loggedInUser: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
+    loading: state.user.loading,
   };
 };
 
