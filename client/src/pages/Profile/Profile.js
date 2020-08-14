@@ -17,7 +17,7 @@ const Profile = ({
   foundUser,
 }) => {
   useEffect(() => {
-    console.log("reander profile");
+    console.log("render profile");
     async function fetchData() {
       if (isAuthenticated) {
         await loadUser();

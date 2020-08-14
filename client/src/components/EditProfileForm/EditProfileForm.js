@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
+import axios from "axios";
 
 import "./EditProfileForm.scss";
 
@@ -19,7 +20,7 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
     setFormData({
       name: loading || !user ? "" : user.name,
       username: loading || !user ? "" : user.username,
-      bio: loading || !user ? "" : user.bio,
+      bio: loading || !user ? "" : !user.bio ? "" : user.bio,
       email: loading || !user ? "" : user.email,
     });
   }, [loading]);
@@ -28,9 +29,26 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(54644);
+    console.log(formData);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { name, username, email, bio } = formData;
+
+    const body = JSON.stringify({
+      name,
+      username,
+      email,
+      bio,
+    });
+
+    const res = await axios.put("/api/profile", body, config);
   };
 
   return (

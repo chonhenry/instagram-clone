@@ -18,13 +18,12 @@ const Info = ({
   const [user, setUser] = useState(foundUser);
 
   useEffect(() => {
+    // console.log(foundUser.profileImg);
     if (loggedInUser !== null) {
       if (loggedInUser.username === foundUser.username) {
         setAuthorization(true);
-        console.log("true");
       } else {
         setAuthorization(false);
-        console.log("false");
       }
     }
   }, [foundUser, loggedInUser]);
@@ -65,7 +64,7 @@ const Info = ({
       <div className="top-container">
         <div className="profile-img">
           <img
-            src={foundUser.profileImg ? foundUser.profileImg : avatar}
+            src={loggedInUser.profileImg ? loggedInUser.profileImg : avatar}
             className={imgUploading ? "img-uploading" : ""}
           />
           {authorization && (
