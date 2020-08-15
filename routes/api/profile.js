@@ -45,11 +45,27 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    let { username, email, name, bio, gender, profileImg } = req.body;
+    let { username, email, name, bio, profileImg } = req.body;
+
+    // if (!bio) {
+    //   bio = "";
+    // }
+
+    // if (!profileImg) {
+    //   profileImg = "";
+    // }
 
     try {
       const filter = { _id: req.user.id };
-      const update = { username, email, name, bio, gender, profileImg };
+      let update = { username, email, name };
+
+      if (bio) {
+        update.bio = bio;
+      }
+
+      if (profileImg) {
+        update.profileImg = profileImg;
+      }
 
       let profile = await User.findOneAndUpdate(filter, update, {
         new: true,

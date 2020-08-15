@@ -63,10 +63,18 @@ const Info = ({
     <section className="info-section">
       <div className="top-container">
         <div className="profile-img">
-          <img
-            src={loggedInUser.profileImg ? loggedInUser.profileImg : avatar}
-            className={imgUploading ? "img-uploading" : ""}
-          />
+          {authorization ? (
+            <img
+              src={loggedInUser.profileImg ? loggedInUser.profileImg : avatar}
+              className={imgUploading ? "img-uploading" : ""}
+            />
+          ) : (
+            <img
+              src={foundUser.profileImg ? foundUser.profileImg : avatar}
+              className={imgUploading ? "img-uploading" : ""}
+            />
+          )}
+
           {authorization && (
             <form className="profile-image-upload">
               <input
