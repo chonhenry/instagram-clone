@@ -47,14 +47,6 @@ router.put(
 
     let { username, email, name, bio, profileImg } = req.body;
 
-    // if (!bio) {
-    //   bio = "";
-    // }
-
-    // if (!profileImg) {
-    //   profileImg = "";
-    // }
-
     try {
       const filter = { _id: req.user.id };
       let update = { username, email, name };
