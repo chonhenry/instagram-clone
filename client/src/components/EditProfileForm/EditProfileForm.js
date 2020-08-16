@@ -14,6 +14,14 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
     email: "",
   });
 
+  // const [errorMsg, setErrorMsg] = useState({
+  //   name: "",
+  //   username: "",
+  //   email: "",
+  // });
+
+  const [missingField, setMissingField] = useState(true);
+
   useEffect(() => {
     loadUser();
 
@@ -27,11 +35,17 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    if (e.target.value === "") {
+      setMissingField(true);
+    } else {
+      setMissingField(false);
+    }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setMissingField(true);
 
     const config = {
       headers: {
@@ -48,7 +62,18 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
       bio,
     });
 
-    const res = await axios.put("/api/profile", body, config);
+    try {
+      const res = await axios.put("/api/profile", body, config);
+    } catch (err) {
+      // let temp_obj = errorMsg;
+      // err.response.data.errors.forEach((error) => {
+      //   const key = error.param;
+      //   temp_obj = { ...temp_obj, [key]: error.msg };
+      // });
+      // setErrorMsg(temp_obj);
+
+      console.log(err.response.data.errors);
+    }
   };
 
   return (
@@ -62,14 +87,16 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
               </label>
             </div>
 
-            <input
-              className="form-input"
-              type="text"
-              value={formData.name}
-              name="name"
-              onChange={(e) => onChange(e)}
-              placeholder="Name"
-            />
+            <div className="form-input-container">
+              <input
+                className="form-input"
+                type="text"
+                value={formData.name}
+                name="name"
+                onChange={(e) => onChange(e)}
+                placeholder="Name"
+              />
+            </div>
           </section>
 
           <section className="form-section">
@@ -122,7 +149,16 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
             ></textarea>
           </section>
 
-          <input type="submit" className="submit-button" value="Submit" />
+          {missingField ? (
+            <input
+              type="submit"
+              className="submit-button-disabled"
+              value="Submit"
+              disabled
+            />
+          ) : (
+            <input type="submit" className="submit-button" value="Submit" />
+          )}
         </form>
       )}
     </div>

@@ -54,10 +54,12 @@ const Info = ({
         await loadUser();
         setImgUploading(false);
       } catch (err) {
-        console.log(err.response.data);
+        console.log('err.response.data.errors[0]');
       }
     };
   };
+
+  const findFollowing = async (userId) => {};
 
   return (
     <section className="info-section">
@@ -89,30 +91,17 @@ const Info = ({
         <div className="info-container">
           <div className="username-edit-profile">
             <span className="username">{foundUser.username}</span>
-            {authorization && (
+            {authorization ? (
               <Link className="edit-profile" to="/account/edit">
                 Edit Profile
               </Link>
-            )}
+            ) : null}
           </div>
 
           <div className="posts-followers-following-count">
             <span className="posts-count">{`${foundUser.posts.length} posts`}</span>
             <span className="followers-count">{`${foundUser.followers.length} followers`}</span>
             <span className="following-count">{`${foundUser.following.length} following`}</span>
-
-            {/* <span className="posts-count">
-              <strong>1</strong>
-              {` posts`}
-            </span>
-            <span className="followers-count">
-              <strong>1</strong>
-              {` followers`}
-            </span>
-            <span className="following-count">
-              <strong>135</strong>
-              {` following`}
-            </span> */}
           </div>
 
           <div className="name-bio">
