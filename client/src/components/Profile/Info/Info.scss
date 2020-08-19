@@ -43,6 +43,7 @@
           width: 150px;
           height: 150px;
           opacity: 0;
+
           &:hover {
             cursor: pointer;
           }
@@ -64,7 +65,7 @@
           font-size: 28px;
         }
 
-        .edit-profile {
+        .info-btn {
           color: black;
           text-decoration: none;
           margin-left: 18px;
@@ -72,6 +73,16 @@
           border: 1px solid lightgray;
           border-radius: 4px;
           font-size: 14px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .follow-btn {
+          background-color: #0095f6;
+          border: 1px solid #0095f6;
+          color: #fff;
         }
       }
 
@@ -151,13 +162,17 @@
             // margin-bottom: 10px;
           }
 
-          .edit-profile {
+          .info-btn {
             color: black;
             text-decoration: none;
             margin-left: 0;
             text-align: center;
             padding: 6px 6px;
             width: 100%;
+          }
+
+          .follow-btn {
+            color: #fff;
           }
         }
 

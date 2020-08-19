@@ -15,16 +15,17 @@ const Info = ({
 }) => {
   const [imgUploading, setImgUploading] = useState(false);
   const [authorization, setAuthorization] = useState(false);
-  const [user, setUser] = useState(foundUser);
+  const [isFollowing, setIsFollowing] = useState(null);
 
   useEffect(() => {
-    // console.log(foundUser.profileImg);
     if (loggedInUser !== null) {
       if (loggedInUser.username === foundUser.username) {
         setAuthorization(true);
       } else {
         setAuthorization(false);
       }
+
+      findFollowing(loggedInUser.username);
     }
   }, [foundUser, loggedInUser]);
 
@@ -54,12 +55,45 @@ const Info = ({
         await loadUser();
         setImgUploading(false);
       } catch (err) {
-        console.log('err.response.data.errors[0]');
+        console.log("err.response.data.errors[0]");
       }
     };
   };
 
-  const findFollowing = async (userId) => {};
+  const findFollowing = async (username) => {
+    try {
+      const res = await axios.get(`/api/users/following/${username}`);
+      // console.log(res.data);
+
+      function isFollowing(user) {
+        return user.username === foundUser.username;
+      }
+
+      // console.log(res.data.find(isFollowing));
+      console.log(res.data.find(isFollowing));
+      setIsFollowing(res.data.find(isFollowing));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const followUser = async () => {
+    try {
+      await axios.put(`/api/users/follow/${foundUser._id}`);
+      setIsFollowing(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unFollowUser = async () => {
+    try {
+      await axios.put(`/api/users/unfollow/${foundUser._id}`);
+      setIsFollowing(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="info-section">
@@ -91,11 +125,18 @@ const Info = ({
         <div className="info-container">
           <div className="username-edit-profile">
             <span className="username">{foundUser.username}</span>
-            {authorization ? (
-              <Link className="edit-profile" to="/account/edit">
-                Edit Profile
-              </Link>
-            ) : null}
+            {isAuthenticated &&
+              (authorization ? (
+                <Link className="info-btn" to="/account/edit">
+                  Edit Profile
+                </Link>
+              ) : isFollowing ? (
+                <div className="info-btn following-btn" onClick={unFollowUser}>Following</div>
+              ) : (
+                <div className="info-btn follow-btn" onClick={followUser}>
+                  Follow
+                </div>
+              ))}
           </div>
 
           <div className="posts-followers-following-count">
