@@ -87,16 +87,14 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
               </label>
             </div>
 
-            <div className="form-input-container">
-              <input
-                className="form-input"
-                type="text"
-                value={formData.name}
-                name="name"
-                onChange={(e) => onChange(e)}
-                placeholder="Name"
-              />
-            </div>
+            <input
+              className="form-input"
+              type="text"
+              value={formData.name}
+              name="name"
+              onChange={(e) => onChange(e)}
+              placeholder="Name"
+            />
           </section>
 
           <section className="form-section">
