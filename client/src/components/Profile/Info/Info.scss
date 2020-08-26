@@ -1,10 +1,19 @@
 .info-section {
   margin: 54px auto 0 auto;
   padding: 40px 60px;
-  // height: 230px;
-  //   background-color: red;
   border-bottom: 1px solid lightgray;
   max-width: 900px;
+
+  .backdrop-follow-list {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .top-container {
     width: 100%;
@@ -16,7 +25,6 @@
       position: relative;
       width: 250px;
       height: 150px;
-      //   background-color: red;
 
       img {
         object-fit: cover;
@@ -95,6 +103,12 @@
         .posts-count,
         .followers-count {
           margin-right: 21px;
+        }
+
+        .cursor-pointer {
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
 

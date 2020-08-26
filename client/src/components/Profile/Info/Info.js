@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Backdrop from "../../Backdrop/Backdrop";
+import FollowList from "../../FollowList/FollowList";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { loadUser } from "../../../actions/auth";
+import {
+  toggleOnFollowList,
+  toggleOffFollowList,
+} from "../../../actions/utils";
+
 import avatar from "../../../assets/image/avatar3.jpg";
 import "./Info.scss";
+import followList from "../../../reducers/followList";
 
 const Info = ({
   foundUser,
@@ -12,10 +20,14 @@ const Info = ({
   loadUser,
   isAuthenticated,
   loading,
+  toggleOnFollowList,
+  toggleOffFollowList,
+  followList,
 }) => {
   const [imgUploading, setImgUploading] = useState(false);
   const [authorization, setAuthorization] = useState(false);
   const [isFollowing, setIsFollowing] = useState(null);
+  const [followersFollowing, setFollowersFollowing] = useState(null);
 
   useEffect(() => {
     if (loggedInUser !== null) {
@@ -62,16 +74,13 @@ const Info = ({
 
   const findFollowing = async (username) => {
     try {
-      const res = await axios.get(`/api/users/following/${username}`);
-      // console.log(res.data);
-
-      function isFollowing(user) {
-        return user.username === foundUser.username;
-      }
-
-      // console.log(res.data.find(isFollowing));
-      console.log(res.data.find(isFollowing));
-      setIsFollowing(res.data.find(isFollowing));
+      if (
+        loggedInUser.following.find(
+          (following_user) => following_user.username === foundUser.username
+        )
+      )
+        setIsFollowing(true);
+      else setIsFollowing(false);
     } catch (error) {
       console.log(error);
     }
@@ -95,8 +104,31 @@ const Info = ({
     }
   };
 
+  const toggleFollowList = () => {
+    if (isAuthenticated) {
+      if (followList === false) {
+        toggleOnFollowList();
+      } else {
+        toggleOffFollowList();
+      }
+    }
+  };
+
   return (
     <section className="info-section">
+      {followList && (
+        <div className="backdrop-follow-list">
+          <Backdrop onClick={toggleFollowList} />
+          <FollowList
+            type={followersFollowing}
+            list={
+              followersFollowing === "Followers"
+                ? foundUser.followers
+                : foundUser.following
+            }
+          />
+        </div>
+      )}
       <div className="top-container">
         <div className="profile-img">
           {authorization ? (
@@ -131,7 +163,9 @@ const Info = ({
                   Edit Profile
                 </Link>
               ) : isFollowing ? (
-                <div className="info-btn following-btn" onClick={unFollowUser}>Following</div>
+                <div className="info-btn following-btn" onClick={unFollowUser}>
+                  Following
+                </div>
               ) : (
                 <div className="info-btn follow-btn" onClick={followUser}>
                   Follow
@@ -141,8 +175,24 @@ const Info = ({
 
           <div className="posts-followers-following-count">
             <span className="posts-count">{`${foundUser.posts.length} posts`}</span>
-            <span className="followers-count">{`${foundUser.followers.length} followers`}</span>
-            <span className="following-count">{`${foundUser.following.length} following`}</span>
+            <span
+              className={`followers-count ${
+                isAuthenticated && "cursor-pointer"
+              }`}
+              onClick={() => {
+                setFollowersFollowing("Followers");
+                toggleFollowList();
+              }}
+            >{`${foundUser.followers.length} followers`}</span>
+            <span
+              className={`following-count ${
+                isAuthenticated && "cursor-pointer"
+              }`}
+              onClick={() => {
+                setFollowersFollowing("Following");
+                toggleFollowList();
+              }}
+            >{`${foundUser.following.length} following`}</span>
           </div>
 
           <div className="name-bio">
@@ -186,7 +236,12 @@ const mapStateToProps = (state) => {
     loggedInUser: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
     loading: state.user.loading,
+    followList: state.followList,
   };
 };
 
-export default connect(mapStateToProps, { loadUser })(Info);
+export default connect(mapStateToProps, {
+  loadUser,
+  toggleOnFollowList,
+  toggleOffFollowList,
+})(Info);
