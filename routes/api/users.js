@@ -78,10 +78,15 @@ router.put("/follow/:user_id", auth, async (req, res) => {
     user.following.unshift({
       user_id: req.params.user_id,
       username: follow_user.username,
+      name: follow_user.name,
+      profileImg: follow_user.profileImg,
     });
+
     follow_user.followers.unshift({
       user_id: req.user.id,
       username: user.username,
+      name: user.name,
+      profileImg: user.profileImg,
     });
 
     await user.save();

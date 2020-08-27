@@ -49,6 +49,12 @@ const UserSchema = new mongoose.Schema({
       username: {
         type: String,
       },
+      name: {
+        type: String,
+      },
+      profileImg: {
+        type: String,
+      },
     },
   ],
   followers: [
@@ -58,6 +64,12 @@ const UserSchema = new mongoose.Schema({
         ref: "users",
       },
       username: {
+        type: String,
+      },
+      name: {
+        type: String,
+      },
+      profileImg: {
         type: String,
       },
     },

@@ -126,6 +126,9 @@ const Info = ({
                 ? foundUser.followers
                 : foundUser.following
             }
+            followingList={
+              followersFollowing === "Followers" && foundUser.following
+            }
           />
         </div>
       )}

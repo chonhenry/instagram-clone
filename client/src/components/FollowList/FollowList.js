@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import UserListItem from "../UserListItem/UserListItem";
 import "./FollowList.scss";
 
-const FollowList = ({ type, list }) => {
-  useEffect(() => {
-    console.log(list);
-  }, []);
+const FollowList = ({ type, list, followingList }) => {
+  // useEffect(() => {
+  //   console.log(list);
+  // }, []);
+  //const [isFollowing, setIsFollowing] = useState(true);
+
+  const checkIsFollowing = (username) => {
+    const foundUser = followingList.find((user) => user.username === username);
+
+    if (foundUser) return true;
+    else return false;
+  };
+
   return (
     <div className="follow-list">
       <div className="list-type">
@@ -13,7 +22,13 @@ const FollowList = ({ type, list }) => {
       </div>
       <div className="user-list">
         {list.map((user) => (
-          <UserListItem key={user._id} user={user} />
+          <UserListItem
+            key={user._id}
+            user={user}
+            isFollowing={
+              type === "Followers" ? checkIsFollowing(user.username) : true
+            }
+          />
         ))}
       </div>
     </div>

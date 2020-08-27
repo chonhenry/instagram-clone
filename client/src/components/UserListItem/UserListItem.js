@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { findUser } from "../../actions/user";
+
 import "./UserListItem.scss";
 
-const UserListItem = ({ user }) => {
+const UserListItem = ({ user, isFollowing }) => {
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   return (
     <div className="user-list-item">
       <div className="user-info">
@@ -17,4 +24,10 @@ const UserListItem = ({ user }) => {
   );
 };
 
-export default UserListItem;
+const mapStateToProps = (state) => {
+  return {
+    foundUser: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps, { findUser })(UserListItem);
