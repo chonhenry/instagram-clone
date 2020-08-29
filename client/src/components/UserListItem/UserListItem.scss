@@ -1,3 +1,58 @@
 .user-list-item {
-  background-color: red;
+  //background-color: red;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .user-img {
+      object-fit: cover;
+      object-position: center; /* Center the image within the element */
+      width: 39px;
+      height: 39px;
+      border-radius: 100px;
+      margin-right: 18px;
+      border: 1px solid lightgray;
+    }
+
+    .user-name {
+      .username {
+        text-decoration: none;
+        color: black;
+      }
+
+      .full-name {
+        color: #8e8e8e;
+      }
+    }
+  }
+
+  .follow-btn {
+    color: black;
+    text-decoration: none;
+    margin-left: 18px;
+    padding: 3px 6px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .following {
+  }
+
+  .follow {
+    background-color: #0095f6;
+    border: 1px solid #0095f6;
+    color: #fff;
+  }
 }

@@ -77,6 +77,30 @@ router.put(
 // @access   Private
 router.delete("/", auth, async (req, res) => {
   try {
+    const user = await User.findById(req.user.id);
+
+    // remove user from followers
+    // await user.followers.forEach(async (followers) => {
+    //   const user = await User.findById(followers.user_id);
+
+    //   user.following = user.following.filter(
+    //     (user) => user.user_id.toString() !== req.user.id.toString()
+    //   );
+
+    //   await user.save();
+    // });
+
+    // // remove user from following users
+    // await user.following.forEach(async (following) => {
+    //   const user = await User.findById(following.user_id);
+
+    //   user.followers = user.followers.filter(
+    //     (user) => user.user_id.toString() !== req.user.id.toString()
+    //   );
+
+    //   await user.save();
+    // });
+
     // delete user
     await User.findByIdAndRemove({ _id: req.user.id });
 

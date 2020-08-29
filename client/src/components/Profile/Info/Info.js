@@ -28,6 +28,12 @@ const Info = ({
   const [authorization, setAuthorization] = useState(false);
   const [isFollowing, setIsFollowing] = useState(null);
   const [followersFollowing, setFollowersFollowing] = useState(null);
+  const [followersCount, setFollowersCount] = useState(
+    foundUser.followers.length
+  );
+  const [followingCount, setFollowingCount] = useState(
+    foundUser.following.length
+  );
 
   useEffect(() => {
     if (loggedInUser !== null) {
@@ -217,16 +223,25 @@ const Info = ({
 
         <div className="posts-followers-following-count-mobile">
           <span className="posts-count-mobile">
-            <strong>1</strong>
-            {` posts`}
+            {`${foundUser.posts.length} posts`}
           </span>
-          <span className="followers-count-mobile">
-            <strong>1</strong>
-            {` followers`}
+          <span
+            className="followers-count-mobile"
+            onClick={() => {
+              setFollowersFollowing("Followers");
+              toggleFollowList();
+            }}
+          >
+            {`${foundUser.followers.length} followers`}
           </span>
-          <span className="following-count-mobile">
-            <strong>135</strong>
-            {` following`}
+          <span
+            className="following-count-mobile"
+            onClick={() => {
+              setFollowersFollowing("Following");
+              toggleFollowList();
+            }}
+          >
+            {`${foundUser.following.length} following`}
           </span>
         </div>
       </div>
