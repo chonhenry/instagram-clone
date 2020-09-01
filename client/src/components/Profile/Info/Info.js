@@ -3,7 +3,7 @@ import axios from "axios";
 import Backdrop from "../../Backdrop/Backdrop";
 import FollowList from "../../FollowList/FollowList";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loadUser } from "../../../actions/auth";
 import {
   toggleOnFollowList,

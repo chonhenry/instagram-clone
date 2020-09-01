@@ -13,10 +13,11 @@ const PostSchema = new mongoose.Schema({
   },
   caption: {
     type: String,
+    required: true,
   },
   img: {
     type: String,
-    //required: true
+    required: true,
   },
   date: {
     type: Date,

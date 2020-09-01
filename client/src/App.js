@@ -5,6 +5,7 @@ import Signup from "./pages/Signup/Signup";
 import Main from "./pages/Main/Main";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import CreatePost from "./pages/CreatePost/CreatePost";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 import "./App.css";
@@ -32,6 +33,7 @@ const App = () => {
           <PrivateRoute exact path="/" component={Main} />
           {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/:username" component={Profile} />
+          <Route exact path="/:username/create-post" component={CreatePost} />
           <PrivateRoute exact path="/account/edit" component={EditProfile} />
         </Switch>
       </Router>

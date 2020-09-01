@@ -1,12 +1,33 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import Backdrop from "../Backdrop/Backdrop";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import { findUser } from "../../actions/user";
+import {
+  toggleOnCreatePost,
+  toggleOffCreatePost,
+  toggleOnFollowList,
+} from "../../actions/utils";
 
 import "./Dropdown.scss";
 
-const Dropdown = ({ logout, user, findUser }) => {
+const Dropdown = ({
+  logout,
+  user,
+  findUser,
+  createPost,
+  toggleOnCreatePost,
+  toggleOffCreatePost,
+  followList,
+}) => {
+  const onClick = () => {
+    console.log(createPost);
+    if (createPost === false) {
+      toggleOnCreatePost();
+    }
+  };
+
   return (
     <div className="dropdown">
       <Link
@@ -16,20 +37,14 @@ const Dropdown = ({ logout, user, findUser }) => {
       >
         Profile
       </Link>
-      {/* <Link
-        onClick={() => findUser("vivian_ho")}
-        className="dropdown-link"
-        to={`/vivian_ho`}
-      >
-        vv
-      </Link>
+
       <Link
-        onClick={() => findUser("may_li")}
         className="dropdown-link"
-        to={`/may_li`}
+        onClick={onClick}
+        to={`/${user.username}/create-post`}
       >
-        m
-      </Link> */}
+        Create Post
+      </Link>
 
       <Link onClick={logout} className="dropdown-link" to="/login">
         Logout
@@ -41,7 +56,15 @@ const Dropdown = ({ logout, user, findUser }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
+    createPost: state.createPost,
+    followList: state.followList,
   };
 };
 
-export default connect(mapStateToProps, { logout, findUser })(Dropdown);
+export default connect(mapStateToProps, {
+  logout,
+  findUser,
+  toggleOnCreatePost,
+  toggleOffCreatePost,
+  toggleOnFollowList,
+})(Dropdown);

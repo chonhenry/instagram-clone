@@ -83,7 +83,7 @@ const Navbar = ({
   );
 
   return (
-    <div onClick={toggle_off_dropdown} className="navbar">
+    <div className="navbar" onClick={toggle_off_dropdown}>
       {isAuthenticated && !loading ? loggedInNavbar : loggedOutNavbar}
     </div>
   );

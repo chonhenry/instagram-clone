@@ -1,9 +1,10 @@
-import axios from "axios";
 import {
   TOGGLE_ON_DROPDOWN,
   TOGGLE_OFF_DROPDOWN,
   TOGGLE_ON_FOLLOW_LIST,
   TOGGLE_OFF_FOLLOW_LIST,
+  TOGGLE_ON_CREATE_POST,
+  TOGGLE_OFF_CREATE_POST,
 } from "../actions/type";
 
 // toogle on dropdown
@@ -31,5 +32,20 @@ export const toggleOnFollowList = () => {
 export const toggleOffFollowList = () => {
   return {
     type: TOGGLE_OFF_FOLLOW_LIST,
+  };
+};
+
+// toggle on create post
+export const toggleOnCreatePost = () => {
+  console.log("action");
+  return {
+    type: TOGGLE_ON_CREATE_POST,
+  };
+};
+
+// toggle off create post
+export const toggleOffCreatePost = () => {
+  return {
+    type: TOGGLE_OFF_CREATE_POST,
   };
 };
