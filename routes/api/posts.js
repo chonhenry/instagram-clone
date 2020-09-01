@@ -13,12 +13,15 @@ const Post = require("../../models/Post");
 router.post("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    const { caption } = req.body;
+    const { caption, image } = req.body;
+
+    console.log(user.username);
 
     const newPost = new Post({
       caption,
       createdBy: req.user.id,
       createdByUsername: req.user.username,
+      image,
     });
 
     const post = await newPost.save();

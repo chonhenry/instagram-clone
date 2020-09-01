@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import { connect } from "react-redux";
 // Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
 
@@ -23,21 +26,35 @@ registerPlugin(
   FilePondPluginImageResize
 );
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ username }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(username);
+  }, []);
 
   const onChange = (e) => {
     setCaption(e.target.value);
   };
 
-  const onClick = (e) => {
-    console.log(caption);
-    console.log(image.length);
+  const onClick = async (e) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = { caption, image };
+      await axios.post("/api/posts", body, config);
+      //useHistory().push("/henrychon");
+    } catch (err) {
+      console.log(err.response.data.errors);
+    }
   };
 
   const onUpdateImages = (images) => {
-    //a[0].getFileEncodeBase64String()
     let base64 = images.map((image) => image.getFileEncodeBase64String());
     setImage(base64);
   };
@@ -52,17 +69,20 @@ const CreatePostForm = () => {
         value={caption}
       />
       <FilePond
-        //files={files}
         allowReorder={true}
         allowMultiple={true}
         onupdatefiles={(images) => onUpdateImages(images)}
         maxFiles={3}
-        labelIdle='Drag & Drop your files or <span class="filepon d--label-action">Browse</span>'
-        //imageCropAspectRatio="1:1"
-        //imageResizeTargetHeight="600px"
+        labelIdle="Upload up to 3 images"
       />
       {caption.length !== 0 && image.length !== 0 ? (
-        <button className={`post-btn`} onClick={(e) => onClick(e)}>
+        <button
+          className={`post-btn`}
+          onClick={(e) => {
+            onClick(e);
+            history.push(`/${username}`);
+          }}
+        >
           Post
         </button>
       ) : (
@@ -74,4 +94,10 @@ const CreatePostForm = () => {
   );
 };
 
-export default CreatePostForm;
+const mapStateToProps = (state) => {
+  return {
+    username: state.auth.user.username,
+  };
+};
+
+export default connect(mapStateToProps)(CreatePostForm);
