@@ -5,7 +5,6 @@ export default function (state = false, action) {
 
   switch (type) {
     case TOGGLE_ON_CREATE_POST:
-      console.log("reducer");
       return true;
     case TOGGLE_OFF_CREATE_POST:
     default:

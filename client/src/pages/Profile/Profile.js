@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Info from "../../components/Profile/Info/Info";
+import ProfilePostContainer from "../../components/Profile/ProfilePost/ProfilePostContainer/ProfilePostContainer";
 import Loading from "../../components/Loading/Loading";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
@@ -8,16 +9,8 @@ import { findUser } from "../../actions/user";
 
 import "./Profile.scss";
 
-const Profile = ({
-  user,
-  loading,
-  isAuthenticated,
-  match,
-  findUser,
-  foundUser,
-}) => {
+const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
   useEffect(() => {
-    console.log("render profile");
     async function fetchData() {
       if (isAuthenticated) {
         await loadUser();
@@ -33,7 +26,14 @@ const Profile = ({
     <div>
       {!loading && <Navbar />}
 
-      {!foundUser ? <Loading /> : <Info foundUser={foundUser} />}
+      {!foundUser ? (
+        <Loading />
+      ) : (
+        <Fragment>
+          <Info foundUser={foundUser} />
+          <ProfilePostContainer posts={foundUser.posts} />
+        </Fragment>
+      )}
     </div>
   );
 };

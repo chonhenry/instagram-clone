@@ -1,0 +1,13 @@
+.profile-post-container {
+  margin: 40px auto 40px auto;
+  //padding: 40px 60px;
+  border: 1px solid lightgray;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  //   grid-template-columns: minmax(auto, 290px) minmax(auto, 290px) minmax(
+  //       auto,
+  //       290px
+  //     );
+  //grid-auto-rows: minmax(auto, 290px) minmax(auto, 290px) minmax(auto, 290px);
+}

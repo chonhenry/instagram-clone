@@ -1,11 +1,22 @@
-// https://pqina.nl/filepond/
-
 const express = require("express");
 const auth = require("../../middleware/auth");
 const router = express.Router();
 
 const User = require("../../models/User");
 const Post = require("../../models/Post");
+
+// @route     GET /api/posts/:post_id
+// @desc      get a single post
+// @access    public
+router.get("/:post_id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.post_id);
+    res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // @route     POST /api/posts
 // @desc      create post
@@ -14,8 +25,6 @@ router.post("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     const { caption, image } = req.body;
-
-    console.log(user.username);
 
     const newPost = new Post({
       caption,

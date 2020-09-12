@@ -4,6 +4,7 @@ import user from "./user";
 import dropdown from "./dropdown";
 import followList from "./followList";
 import createPost from "./createPost";
+import fetchUserPosts from "./fetchPosts";
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   dropdown,
   followList,
   createPost,
+  userPosts: fetchUserPosts,
 });
