@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ProfilePost from "../ProfilePost/ProfilePost";
+import Backdrop from "../../../Backdrop/Backdrop";
 import { fetchPosts } from "../../../../actions/posts";
 import { connect } from "react-redux";
 import "./ProfilePostContainer.scss";
@@ -8,6 +9,7 @@ import "./ProfilePostContainer.scss";
 const ProfilePostContainer = ({ posts, fetchPosts }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [backdrop, setBackdrop] = useState(false);
 
   useEffect(() => {
     let tmp = [];
@@ -35,7 +37,14 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
     <div className="profile-post-container">
       <div className="profile-post-container-row">
         {loading &&
-          userPosts.map((post) => <ProfilePost key={post._id} post={post} />)}
+          userPosts.map((post) => (
+            <ProfilePost
+              onClick={() => setBackdrop(true)}
+              key={post._id}
+              post={post}
+            />
+          ))}
+        {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
       </div>
     </div>
   );
