@@ -1,9 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
 import Dropdown from "../Dropdown/Dropdown";
-import Button from "../Button/Button";
 import { toggleOnDropdown, toggleOffDropdown } from "../../actions/utils";
 
 import "./Navbar.scss";

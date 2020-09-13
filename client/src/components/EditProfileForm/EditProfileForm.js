@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Button from "../Button/Button";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
 import axios from "axios";
@@ -13,12 +12,6 @@ const EditProfileForm = ({ user, isAuthenticated, loading, loadUser }) => {
     bio: "",
     email: "",
   });
-
-  // const [errorMsg, setErrorMsg] = useState({
-  //   name: "",
-  //   username: "",
-  //   email: "",
-  // });
 
   const [missingField, setMissingField] = useState(true);
 

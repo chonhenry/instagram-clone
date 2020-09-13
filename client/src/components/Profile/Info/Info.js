@@ -12,7 +12,6 @@ import {
 
 import avatar from "../../../assets/image/avatar3.jpg";
 import "./Info.scss";
-import followList from "../../../reducers/followList";
 
 const Info = ({
   foundUser,

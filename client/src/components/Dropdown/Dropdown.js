@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Backdrop from "../Backdrop/Backdrop";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
