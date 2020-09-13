@@ -31,21 +31,12 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
     }
   }, []);
 
-  const renderPosts = (post) => {
-    return <ProfilePost createdBy={post.createdByUsername} />;
-  };
-
   return (
     <div className="profile-post-container">
-      {loading ? (
-        userPosts.map((post) => (
-          <div onClick={() => console.log(userPosts)} key={post.caption}>
-            {post.caption}
-          </div>
-        ))
-      ) : (
-        <div onClick={() => console.log(userPosts)}>loading</div>
-      )}
+      <div className="profile-post-container-row">
+        {loading &&
+          userPosts.map((post) => <ProfilePost key={post._id} post={post} />)}
+      </div>
     </div>
   );
 };

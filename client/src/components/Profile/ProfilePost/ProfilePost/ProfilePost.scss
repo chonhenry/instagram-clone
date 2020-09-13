@@ -1,8 +1,46 @@
 .profile-post-box {
-  width: 290px;
+  max-width: 290px;
   height: 290px;
+  background-color: gray;
+  position: relative;
+  margin-bottom: 15px;
+
+  img {
+    object-fit: cover;
+    object-position: center; /* Center the image within the element */
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.4;
+    }
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0;
+
+    .likes-count {
+      margin-right: 24px;
+    }
+
+    .likes-count,
+    .comments-count {
+      font-size: 18px;
+      margin-left: 6px;
+    }
+  }
 
   &:hover {
     cursor: pointer;
+
+    .text {
+      opacity: 1;
+    }
   }
 }
