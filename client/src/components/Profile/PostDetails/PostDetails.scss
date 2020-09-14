@@ -1,0 +1,11 @@
+.profile-details-container {
+  width: 80%;
+  max-width: 1000px;
+  height: 600px;
+  //margin: 0 20px 0 20px;
+  background-color: white;
+  z-index: 200;
+  overflow: auto;
+
+  display: flex;
+}

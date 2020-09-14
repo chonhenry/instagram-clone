@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import ProfilePost from "../ProfilePost/ProfilePost";
+import PostDetails from "../../PostDetails/PostDetails";
 import Backdrop from "../../../Backdrop/Backdrop";
 import { fetchPosts } from "../../../../actions/posts";
 import { connect } from "react-redux";
@@ -10,6 +11,7 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [backdrop, setBackdrop] = useState(false);
+  const [currentPost, setCurrentPost] = useState(null);
 
   useEffect(() => {
     let tmp = [];
@@ -39,12 +41,25 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
         {loading &&
           userPosts.map((post) => (
             <ProfilePost
-              onClick={() => setBackdrop(true)}
+              onClick={() => {
+                setCurrentPost(post);
+                setBackdrop(true);
+              }}
               key={post._id}
               post={post}
             />
           ))}
-        {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
+        {backdrop && (
+          <div className="backdrop-post-details">
+            <Backdrop
+              onClick={() => {
+                setBackdrop(false);
+                setCurrentPost(null);
+              }}
+            />
+            <PostDetails post={currentPost} />
+          </div>
+        )}
       </div>
     </div>
   );

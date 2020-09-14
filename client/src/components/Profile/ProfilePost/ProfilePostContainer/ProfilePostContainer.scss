@@ -9,6 +9,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
+
+  .backdrop-post-details {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (max-width: 888px) {
