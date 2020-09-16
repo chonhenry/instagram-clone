@@ -6,15 +6,18 @@
 
   .profile-post-container-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     flex-wrap: wrap;
+    gap: 15px;
   }
 
   .backdrop-post-details {
+    //
     position: absolute;
     width: 100vw;
     height: 100vh;
     top: 0;
+    bottom: 0;
     left: 0;
     display: flex;
     justify-content: center;
@@ -22,7 +25,7 @@
   }
 }
 
-@media (max-width: 888px) {
+@media (max-width: 917px) {
   .profile-post-container {
     max-width: 600px;
 
@@ -32,7 +35,7 @@
   }
 }
 
-@media (max-width: 596px) {
+@media (max-width: 610px) {
   .profile-post-container {
     width: 100%;
 

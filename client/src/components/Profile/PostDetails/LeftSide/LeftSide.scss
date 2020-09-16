@@ -1,5 +1,34 @@
 .left-side {
-  background-color: lightblue;
-  width: 60%;
+  background-color: black;
+  width: 100%;
+  flex-grow: 1;
   height: 100%;
+  position: relative;
+
+  .post-images {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .fa-chevron-circle-left {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 6px;
+  }
+
+  .fa-chevron-circle-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 6px;
+  }
+
+  .arrow {
+    opacity: 0.9;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
