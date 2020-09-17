@@ -6,9 +6,8 @@ import "./PostDetails.scss";
 const PostDetails = ({ post }) => {
   const [currentImg, setCurrentImg] = useState(0);
 
-
   useEffect(() => {
-    console.log("post.image.length:", post.image.length);
+    // console.log("post.image.length:", post.image.length);
   }, []);
 
   return (
