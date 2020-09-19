@@ -17,7 +17,7 @@ const PostDetails = ({ post }) => {
         l_arrow={currentImg !== 0 ? true : false}
         r_arrow={currentImg !== post.image.length ? true : false}
       />
-      <RightSide />
+      <RightSide post={post} />
     </div>
   );
 };

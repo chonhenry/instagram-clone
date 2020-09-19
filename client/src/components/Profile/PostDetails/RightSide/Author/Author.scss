@@ -1,4 +1,36 @@
 .author-container {
-  background-color: yellow;
+  // background-color: yellow;
+  border-bottom: 1px solid lightgray;
   height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .author-info {
+    margin-left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .author-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid lightgray;
+    }
+
+    .margin-right {
+      margin-right: 6px;
+    }
+  }
+
+  .dots {
+    margin-right: 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
