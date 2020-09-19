@@ -8,17 +8,18 @@ import WriteComment from "./WriteComment/WriteComment";
 import { connect } from "react-redux";
 import "./RightSide.scss";
 
-const RightSide = ({ post, author }) => {
+const RightSide = ({ post, author, authUser }) => {
   useEffect(() => {
     //console.log(post);
-    console.log(author);
+    //console.log(author);
   }, [author]);
 
   return (
     <div className="right-side">
       <Author image={author.profileImg} username={post.createdByUsername} />
       <CommentsContainer />
-      <PostButtons />
+      {/* <PostButtons postId={post._id} /> */}
+      <PostButtons postId={post._id} authUsername={authUser.username} />
       <LikesCount />
       <PostDate />
       <WriteComment />
@@ -28,6 +29,7 @@ const RightSide = ({ post, author }) => {
 
 const mapStateToProps = (state) => {
   return {
+    authUser: state.auth.user,
     author: state.user.user,
   };
 };

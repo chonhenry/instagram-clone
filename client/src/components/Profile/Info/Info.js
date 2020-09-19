@@ -72,7 +72,7 @@ const Info = ({
         await loadUser();
         setImgUploading(false);
       } catch (err) {
-        console.log("err.response.data.errors[0]");
+        console.log(err.response.data.errors[0]);
       }
     };
   };

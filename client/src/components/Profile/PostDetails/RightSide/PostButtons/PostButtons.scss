@@ -1,4 +1,18 @@
 .post-buttons-container {
-  background-color: orchid;
+  //background-color: orchid;
   height: 45px;
+  display: flex;
+  align-items: center;
+
+  .heart {
+    margin-left: 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .red-heart {
+    color: #fb3958;
+  }
 }
