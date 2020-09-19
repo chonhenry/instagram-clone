@@ -12,5 +12,5 @@ export default combineReducers({
   dropdown,
   followList,
   createPost,
-  userPosts: fetchUserPosts,
+  post: fetchUserPosts,
 });

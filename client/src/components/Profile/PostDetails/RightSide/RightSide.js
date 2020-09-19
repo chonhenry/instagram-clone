@@ -1,27 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Author from "./Author/Author";
 import CommentsContainer from "./CommentsContainer/CommentsContainer";
-import PostButtons from "./PostButtons/PostButtons";
-import LikesCount from "./LikesCount/LikesCount";
-import PostDate from "./PostDate/PostDate";
+import PostStats from "./PostStats/PostStats";
 import WriteComment from "./WriteComment/WriteComment";
 import { connect } from "react-redux";
 import "./RightSide.scss";
 
 const RightSide = ({ post, author, authUser }) => {
   useEffect(() => {
-    //console.log(post);
-    //console.log(author);
+    console.log(post);
   }, [author]);
 
   return (
     <div className="right-side">
       <Author image={author.profileImg} username={post.createdByUsername} />
       <CommentsContainer />
-      {/* <PostButtons postId={post._id} /> */}
-      <PostButtons postId={post._id} authUsername={authUser.username} />
-      <LikesCount />
-      <PostDate />
+      <PostStats
+        postId={post._id}
+        likes={post.likes}
+        authUsername={authUser.username}
+        date={post.date}
+      />
       <WriteComment />
     </div>
   );

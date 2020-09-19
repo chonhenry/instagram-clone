@@ -1,0 +1,29 @@
+.post-stats {
+  //background-color: palegreen;
+  border-bottom: 1px solid lightgray;
+  height: 85px;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .like-btn {
+    //background-color: orchid;
+    height: 32px;
+    display: flex;
+    align-items: center;
+
+    .heart {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .red-heart {
+      color: #fb3958;
+    }
+  }
+
+  .likes-count {
+  }
+}

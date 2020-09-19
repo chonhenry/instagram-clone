@@ -14,7 +14,7 @@ export const fetchPosts = (post_id) => async (dispatch) => {
     console.log(err.response);
     dispatch({
       type: FETCH_POSTS_FAIL,
-      //payload: err.response.data.errors[0].msg,
+      payload: err.response.data.errors[0].msg,
     });
   }
 };

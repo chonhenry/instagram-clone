@@ -33,7 +33,7 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
     } catch (err) {
       console.log(err.message);
     }
-  }, []);
+  }, [backdrop]);
 
   return (
     <div className="profile-post-container">
