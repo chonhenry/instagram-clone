@@ -21,7 +21,7 @@ const RightSide = ({ post, author, authUser }) => {
         authUsername={authUser.username}
         date={post.date}
       />
-      <WriteComment />
+      <WriteComment postId={post._id} />
     </div>
   );
 };
