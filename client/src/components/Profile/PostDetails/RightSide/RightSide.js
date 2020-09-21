@@ -8,20 +8,26 @@ import "./RightSide.scss";
 
 const RightSide = ({ post, author, authUser }) => {
   useEffect(() => {
-    console.log(post);
+    //console.log(post);
   }, [author]);
 
   return (
     <div className="right-side">
-      <Author image={author.profileImg} username={post.createdByUsername} />
-      <CommentsContainer />
+      <Author
+        image={author.profileImg}
+        username={post.createdByUsername}
+        authorId={author._id}
+        followingList={authUser.following}
+        self={author._id === authUser._id}
+      />
+      <CommentsContainer posts={post.comments} />
       <PostStats
         postId={post._id}
         likes={post.likes}
         authUsername={authUser.username}
         date={post.date}
       />
-      <WriteComment postId={post._id} />
+      <WriteComment postId={post._id} image={authUser.profileImg} />
     </div>
   );
 };

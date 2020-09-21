@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./WriteComment.scss";
 
-const WriteComment = ({ postId }) => {
+const WriteComment = ({ postId, image }) => {
   const [comment, setComment] = useState("");
 
   const onSubmit = (e) => {
@@ -16,9 +16,14 @@ const WriteComment = ({ postId }) => {
 
       const body = JSON.stringify({
         text: comment,
+        profileImg: image,
       });
 
-      axios.put(`/api/posts/comment/${postId}`, body, config);
+      try {
+        axios.put(`/api/posts/comment/${postId}`, body, config);
+      } catch (error) {
+        console.log(error);
+      }
 
       setComment("");
     }

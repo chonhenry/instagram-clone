@@ -140,6 +140,7 @@ router.put("/comment/:post_id", auth, async (req, res) => {
     user_id: req.user.id,
     username: req.user.username,
     text: req.body.text,
+    profileImg: req.body.profileImg,
   });
 
   await post.save();
@@ -183,5 +184,45 @@ router.put(
     res.json(post.comments);
   }
 );
+
+// @route     PUT /api/posts/comment/like/:post_id/:comment_id
+// @desc      like a comment
+// @access    private
+router.put("/comment/like/:post_id/:comment_id", auth, async (req, res) => {
+  const post = await Post.findById(req.params.post_id);
+  let idx;
+  const comments = post.comments;
+
+  console.log("post_id: ", req.params.post_id);
+  console.log("comment_id: ", req.params.comment_id);
+
+  for (let i = 0; i < comments.length; i++) {
+    if (comments[i]._id.toString() === req.params.comment_id) {
+      console.log(123);
+      idx = i;
+      const comment = comments[i];
+
+      if (
+        comment.likes.filter((like) => like.user_id.toString() === req.user.id)
+          .length > 0
+      ) {
+        return res
+          .status(400)
+          .json({ msg: "You have already liked this comment" });
+      }
+
+      post.comments[i].likes.unshift({
+        user_id: req.user.id,
+        username: req.user.username,
+      });
+
+      await post.save();
+      res.json(post);
+      break;
+    }
+  }
+
+  return res.status(400).json({ msg: "Comment not found" });
+});
 
 module.exports = router;

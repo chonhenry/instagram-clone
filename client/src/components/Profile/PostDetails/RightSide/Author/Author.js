@@ -1,15 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Author.scss";
 
-const Author = ({ image, username }) => {
+const Author = ({ image, username, authorId, followingList, self }) => {
   return (
     <div className="author-container">
       <div className="author-info">
         <img className="author-img margin-right" src={image} />
         <div className="author-username margin-right">{username}</div>
-        <div className="margin-right">•</div>
-        <div>Following</div>
+        {/* {!self && <div className="margin-right">•</div>}
+        {!self && <div>Following</div>} */}
       </div>
 
       <div className="dots">
