@@ -185,20 +185,16 @@ router.put(
   }
 );
 
-// @route     PUT /api/posts/comment/like/:post_id/:comment_id
+// @route     PUT /api/posts/comment/like/:post_id&:comment_id
 // @desc      like a comment
 // @access    private
-router.put("/comment/like/:post_id/:comment_id", auth, async (req, res) => {
+router.put("/comment/like/:post_id&:comment_id", auth, async (req, res) => {
   const post = await Post.findById(req.params.post_id);
   let idx;
   const comments = post.comments;
 
-  console.log("post_id: ", req.params.post_id);
-  console.log("comment_id: ", req.params.comment_id);
-
   for (let i = 0; i < comments.length; i++) {
     if (comments[i]._id.toString() === req.params.comment_id) {
-      console.log(123);
       idx = i;
       const comment = comments[i];
 
@@ -226,3 +222,48 @@ router.put("/comment/like/:post_id/:comment_id", auth, async (req, res) => {
 });
 
 module.exports = router;
+
+// @route     PUT /api/posts/comment/unlike/:post_id&:comment_id&:like_id
+// @desc      unlike a comment
+// @access    private
+router.put(
+  "/comment/unlike/:post_id&:comment_id&:like_id",
+  auth,
+  async (req, res) => {
+    const post = await Post.findById(req.params.post_id);
+    const comments = post.comments;
+
+    for (let i = 0; i < comments.length; i++) {
+      if (comments[i]._id.toString() === req.params.comment_id) {
+        let comment_idx = i;
+        let like_idx;
+        const comment = comments[comment_idx];
+
+        let like = comment.likes.find(
+          (like) => like._id.toString() === req.params.like_id
+        );
+
+        if (!like) return res.status(404).json({ msg: "Like does not exist" });
+
+        // Check user
+        if (like.user_id.toString() !== req.user.id) {
+          console.log(like.user_id.toString());
+          console.log(req.user.id);
+          return res.status(401).json({ msg: "User not authorized" });
+        }
+
+        like_idx = comment.likes
+          .map((like) => like._id.toString)
+          .indexOf(req.params.like_id);
+
+        post.comments[comment_idx].likes.splice(like_idx, 1);
+
+        await post.save();
+        res.json(post);
+        break;
+      }
+    }
+
+    return res.status(400).json({ msg: "Comment not found" });
+  }
+);
