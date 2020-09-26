@@ -33,7 +33,11 @@ const App = () => {
           <PrivateRoute exact path="/" component={Main} />
           {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/:username" component={Profile} />
-          <PrivateRoute exact path="/:username/create-post" component={CreatePost} />
+          <PrivateRoute
+            exact
+            path="/:username/create-post"
+            component={CreatePost}
+          />
           <PrivateRoute exact path="/account/edit" component={EditProfile} />
         </Switch>
       </Router>
