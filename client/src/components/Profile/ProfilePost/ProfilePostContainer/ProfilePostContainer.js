@@ -4,36 +4,39 @@ import ProfilePost from "../ProfilePost/ProfilePost";
 import PostDetails from "../../PostDetails/PostDetails";
 import Backdrop from "../../../Backdrop/Backdrop";
 import { fetchPosts } from "../../../../actions/posts";
+import { toggleOnBackdrop, toggleOffBackdrop } from "../../../../actions/utils";
 import { connect } from "react-redux";
 import "./ProfilePostContainer.scss";
 
-const ProfilePostContainer = ({ posts, fetchPosts }) => {
+const ProfilePostContainer = ({
+  foundUser,
+  posts,
+  fetchPosts,
+  backdrop,
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+}) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [backdrop, setBackdrop] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
 
   useEffect(() => {
     let tmp = [];
 
-    try {
-      posts.forEach(async (id) => {
-        axios.get(`/api/posts/${id.post}`).then((res) => {
-          tmp.unshift(res.data);
+    posts.forEach(async (id) => {
+      axios.get(`/api/posts/${id.post}`).then((res) => {
+        tmp.unshift(res.data);
 
-          if (posts.length === tmp.length) {
-            tmp.sort((a, b) => {
-              return new Date(b.date) - new Date(a.date);
-            });
-            setUserPosts(tmp);
-            setLoading(true);
-          }
-        });
+        if (posts.length === tmp.length) {
+          tmp.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+          });
+          setUserPosts(tmp);
+          setLoading(true);
+        }
       });
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, [backdrop]);
+    });
+  }, [backdrop, foundUser]);
 
   return (
     <div className="profile-post-container">
@@ -43,7 +46,8 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
             <ProfilePost
               onClick={() => {
                 setCurrentPost(post);
-                setBackdrop(true);
+                // setBackdrop(true);
+                toggleOnBackdrop();
               }}
               key={post._id}
               post={post}
@@ -53,7 +57,8 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
           <div className="backdrop-post-details">
             <Backdrop
               onClick={() => {
-                setBackdrop(false);
+                // setBackdrop(false);
+                toggleOffBackdrop();
                 setCurrentPost(null);
               }}
             />
@@ -65,4 +70,14 @@ const ProfilePostContainer = ({ posts, fetchPosts }) => {
   );
 };
 
-export default connect(null, { fetchPosts })(ProfilePostContainer);
+const mapStateToProps = (state) => {
+  return {
+    backdrop: state.backdrop,
+  };
+};
+
+export default connect(mapStateToProps, {
+  fetchPosts,
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+})(ProfilePostContainer);

@@ -221,8 +221,6 @@ router.put("/comment/like/:post_id&:comment_id", auth, async (req, res) => {
   return res.status(400).json({ msg: "Comment not found" });
 });
 
-module.exports = router;
-
 // @route     PUT /api/posts/comment/unlike/:post_id&:comment_id&:like_id
 // @desc      unlike a comment
 // @access    private
@@ -267,3 +265,5 @@ router.put(
     return res.status(400).json({ msg: "Comment not found" });
   }
 );
+
+module.exports = router;

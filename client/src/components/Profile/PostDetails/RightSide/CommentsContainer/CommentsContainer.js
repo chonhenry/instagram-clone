@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import Comment from "../Comment/Comment";
 import "./CommentsContainer.scss";
 
-const CommentsContainer = ({ posts }) => {
+const CommentsContainer = ({ comments, caption }) => {
   useEffect(() => {
-    console.log(posts);
+    //console.log(comments);
   }, []);
 
   return (
     <div className="comments-container">
-      CommentsContainer
-      <div>
-        <Comment />
-      </div>
+      <Comment comment={caption} isCaption={true} />
+      {comments.map((comment) => (
+        <Comment key={comment._id} comment={comment} />
+      ))}
     </div>
   );
 };

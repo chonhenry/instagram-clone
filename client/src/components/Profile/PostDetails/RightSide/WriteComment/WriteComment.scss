@@ -14,7 +14,6 @@
     .comment-input {
       resize: none;
       width: 80%;
-      height: 19px;
       max-height: 40px;
       overflow: auto;
       border: none;
@@ -22,6 +21,18 @@
       &:focus {
         outline: none;
       }
+    }
+
+    .one-row {
+      height: 18px;
+    }
+
+    .two-rows {
+      height: 36px;
+    }
+
+    .three-rows {
+      height: 54px;
     }
 
     .submit-comment {

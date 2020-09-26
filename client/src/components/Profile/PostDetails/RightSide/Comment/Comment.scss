@@ -1,3 +1,74 @@
 .comment {
-    
+  box-sizing: border-box;
+  //background-color: yellow;
+  display: flex;
+
+  .profile-img-container {
+    position: relative;
+    //background-color: red;
+    width: 18%;
+    display: flex;
+    justify-content: center;
+
+    .profile-img {
+      width: 33px;
+      height: 33px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid gray;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .comment-contents {
+    // background-color: lightblue;
+    background-color: white;
+    width: 67%;
+    min-height: 33px;
+
+    .username-text {
+      font-size: 16px;
+      .username-link {
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .comment-stats {
+      // background-color: lightcoral;
+      color: #8e8e8e;
+      margin-top: 9px;
+      margin-bottom: 21px;
+      font-size: 14px;
+
+      .like-count {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .like-comment {
+    //background-color: red;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    padding-top: 9px;
+
+    .fa-heart {
+      height: 16px;
+      &:hover {
+        &::before {
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }

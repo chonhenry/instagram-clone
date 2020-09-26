@@ -5,6 +5,8 @@ import {
   TOGGLE_OFF_FOLLOW_LIST,
   TOGGLE_ON_CREATE_POST,
   TOGGLE_OFF_CREATE_POST,
+  TOGGLE_ON_BACKDROP,
+  TOGGLE_OFF_BACKDROP,
 } from "../actions/type";
 
 // toogle on dropdown
@@ -18,6 +20,20 @@ export const toggleOnDropdown = () => {
 export const toggleOffDropdown = () => {
   return {
     type: TOGGLE_OFF_DROPDOWN,
+  };
+};
+
+// toogle on backdrop
+export const toggleOnBackdrop = () => {
+  return {
+    type: TOGGLE_ON_BACKDROP,
+  };
+};
+
+// toogle off backdrop
+export const toggleOffBackdrop = () => {
+  return {
+    type: TOGGLE_OFF_BACKDROP,
   };
 };
 

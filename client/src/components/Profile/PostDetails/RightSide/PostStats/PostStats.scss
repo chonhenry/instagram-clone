@@ -1,11 +1,11 @@
 .post-stats {
   //background-color: palegreen;
   border-bottom: 1px solid lightgray;
-  height: 85px;
+  height: 90px;
   padding-left: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 
   .like-btn {
     //background-color: orchid;
@@ -25,6 +25,7 @@
   }
 
   .likes-count {
+    margin: 6px 0 6px 0;
   }
 
   .date {

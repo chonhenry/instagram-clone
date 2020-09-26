@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./WriteComment.scss";
 
 const WriteComment = ({ postId, image }) => {
   const [comment, setComment] = useState("");
+  const [textareaHeight, setTextareaHeight] = useState("one-row");
+  const textareaRef = useRef();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +33,11 @@ const WriteComment = ({ postId, image }) => {
 
   const onChange = (e) => {
     setComment(e.target.value);
+    let height = textareaRef.current.scrollHeight;
+
+    if (height <= 18) setTextareaHeight("one-row");
+    else if (height <= 38) setTextareaHeight("two-rows");
+    else setTextareaHeight("three-rows");
   };
 
   return (
@@ -39,9 +46,11 @@ const WriteComment = ({ postId, image }) => {
         <textarea
           onChange={(e) => onChange(e)}
           value={comment}
-          className="comment-input"
+          className={`comment-input ${textareaHeight}`}
           placeholder="Add a comment..."
+          ref={textareaRef}
         />
+
         <input
           type="submit"
           className={`submit-comment ${

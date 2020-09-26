@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Info from "../../components/Profile/Info/Info";
 import ProfilePostContainer from "../../components/Profile/ProfilePost/ProfilePostContainer/ProfilePostContainer";
@@ -29,10 +29,10 @@ const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
       {!foundUser ? (
         <Loading />
       ) : (
-        <Fragment>
+        <div className="profile-page">
           <Info foundUser={foundUser} />
-          <ProfilePostContainer posts={foundUser.posts} />
-        </Fragment>
+          <ProfilePostContainer foundUser={foundUser} posts={foundUser.posts} />
+        </div>
       )}
     </div>
   );

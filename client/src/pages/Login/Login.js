@@ -4,7 +4,6 @@ import { Link, Redirect } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
 import { login } from "../../actions/auth";
 import Loading from "../../components/Loading/Loading";
-import Navbar from "../../components/Navbar/Navbar";
 
 import "./Login.scss";
 
