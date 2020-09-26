@@ -33,7 +33,11 @@ const RightSide = ({ post, author, authUser }) => {
         followingList={authUser.following}
         self={author._id === authUser._id}
       />
-      <CommentsContainer comments={post.comments} caption={comment_info} />
+      <CommentsContainer
+        comments={post.comments}
+        caption={comment_info}
+        postId={post._id}
+      />
       <PostStats
         postId={post._id}
         likes={post.likes}

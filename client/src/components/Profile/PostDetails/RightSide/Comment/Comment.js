@@ -6,10 +6,25 @@ import { findUser } from "../../../../../actions/user";
 import { toggleOffBackdrop } from "../../../../../actions/utils";
 import "./Comment.scss";
 
-const Comment = ({ comment, findUser, toggleOffBackdrop, isCaption }) => {
+const Comment = ({
+  comment,
+  findUser,
+  toggleOffBackdrop,
+  isCaption,
+  postId,
+  authUsername,
+}) => {
   const { username, date, likes, profileImg, text } = comment;
+  const [commentLiked, setCommentLiked] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(true);
+  const [likesCount, setLikesCount] = useState(likes.length);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (likes.find((like) => like.username === authUsername)) {
+      setCommentLiked(true);
+    }
+    setLikeLoading(false);
+  }, []);
 
   const toUser = async () => {
     await findUser(username);
@@ -34,8 +49,24 @@ const Comment = ({ comment, findUser, toggleOffBackdrop, isCaption }) => {
     return time_diff;
   };
 
-  const likeComment = () => {
-    console.log(comment);
+  const likeComment = async () => {
+    try {
+      if (commentLiked) {
+        console.log("commentLiked");
+        let likeId = likes.find((like) => like.username === authUsername)._id;
+        await axios.put(
+          `/api/posts/comment/unlike/${postId}&${comment._id}&${likeId}`
+        );
+        setCommentLiked(false);
+        setLikesCount((prev) => prev - 1);
+      } else {
+        await axios.put(`/api/posts/comment/like/${postId}&${comment._id}`);
+        setCommentLiked(true);
+        setLikesCount((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -57,20 +88,31 @@ const Comment = ({ comment, findUser, toggleOffBackdrop, isCaption }) => {
         <div className="comment-stats">
           {`${find_time_diff()}`}
           {!isCaption && (
-            <strong className="like-count">{`${likes.length} like`}</strong>
+            <strong className="like-count">{`${likesCount} like`}</strong>
           )}
         </div>
       </div>
       <div className="like-comment">
-        {!isCaption && (
-          <i onClick={() => likeComment()} className="far fa-heart" />
+        {!isCaption && !likeLoading && (
+          <i
+            onClick={() => likeComment()}
+            className={`far fa-heart ${commentLiked ? "comment-liked" : ""}`}
+          />
         )}
       </div>
     </div>
   );
 };
 
-export default connect(null, { findUser, toggleOffBackdrop })(Comment);
+const mapStateToProps = (state) => {
+  return {
+    authUsername: state.auth.user.username,
+  };
+};
+
+export default connect(mapStateToProps, { findUser, toggleOffBackdrop })(
+  Comment
+);
 
 // date: "2020-09-22T11:39:13.152Z"
 // likes: []

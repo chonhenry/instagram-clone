@@ -35,7 +35,7 @@ const WriteComment = ({ postId, image }) => {
     setComment(e.target.value);
     let height = textareaRef.current.scrollHeight;
 
-    if (height <= 18) setTextareaHeight("one-row");
+    if (height <= 18 || comment === "") setTextareaHeight("one-row");
     else if (height <= 38) setTextareaHeight("two-rows");
     else setTextareaHeight("three-rows");
   };
