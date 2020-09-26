@@ -48,7 +48,6 @@ const CreatePostForm = ({ username }) => {
       };
       const body = { caption, image };
       await axios.post("/api/posts", body, config);
-      //useHistory().push("/henrychon");
     } catch (err) {
       console.log(err.response.data.errors);
     }
@@ -78,8 +77,8 @@ const CreatePostForm = ({ username }) => {
       {caption.length !== 0 && image.length !== 0 ? (
         <button
           className={`post-btn`}
-          onClick={(e) => {
-            onClick(e);
+          onClick={async (e) => {
+            await onClick(e);
             history.push(`/${username}`);
           }}
         >

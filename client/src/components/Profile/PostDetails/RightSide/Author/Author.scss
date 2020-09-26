@@ -26,11 +26,28 @@
     }
   }
 
-  .dots {
+  .delete {
     margin-right: 12px;
 
     &:hover {
       cursor: pointer;
+    }
+
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+
+      &:hover {
+        cursor: default;
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 }

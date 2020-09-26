@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import "./Author.scss";
 
-const Author = ({ image, username, authorId, followingList, self }) => {
+const Author = ({ image, username, authorId, followingList, self, postId }) => {
+  const history = useHistory();
+  const [deleting, setDeleting] = useState(false);
+
+  const onClick = async () => {
+    if (!deleting) {
+      setDeleting(true);
+      await axios.delete(`/api/posts/${postId}`);
+      window.location.reload(false);
+      // history.push(`/`);
+    }
+  };
+
   return (
     <div className="author-container">
       <div className="author-info">
@@ -11,9 +25,15 @@ const Author = ({ image, username, authorId, followingList, self }) => {
         {!self && <div>Following</div>} */}
       </div>
 
-      <div className="dots">
-        <i className="fas fa-ellipsis-h"></i>
-      </div>
+      {self && (
+        <div className="delete">
+          {deleting ? (
+            <i className="fas fa-spinner"></i>
+          ) : (
+            <i onClick={onClick} className="far fa-trash-alt"></i>
+          )}
+        </div>
+      )}
     </div>
   );
 };

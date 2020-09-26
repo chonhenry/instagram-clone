@@ -15,14 +15,7 @@ const RightSide = ({ post, author, authUser }) => {
     text: post.caption,
   };
 
-  useEffect(() => {
-    // const { username, date, likes, profileImg, text } = comment;
-    // comment_info.username = authUser.username;
-    // comment_info.date = post.date;
-    // comment_info.likes = [];
-    // comment_info.profileImg = authUser.profileImg;
-    // comment_info.text = authUser.caption;
-  }, [author]);
+  useEffect(() => {}, []);
 
   return (
     <div className="right-side">
@@ -32,6 +25,7 @@ const RightSide = ({ post, author, authUser }) => {
         authorId={author._id}
         followingList={authUser.following}
         self={author._id === authUser._id}
+        postId={post._id}
       />
       <CommentsContainer
         comments={post.comments}
