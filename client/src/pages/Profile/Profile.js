@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Info from "../../components/Profile/Info/Info";
 import ProfilePostContainer from "../../components/Profile/ProfilePost/ProfilePostContainer/ProfilePostContainer";
 import Loading from "../../components/Loading/Loading";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
 import { findUser } from "../../actions/user";
@@ -31,7 +32,17 @@ const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
       ) : (
         <div className="profile-page">
           <Info foundUser={foundUser} />
-          <ProfilePostContainer foundUser={foundUser} posts={foundUser.posts} />
+          {foundUser.posts.length > 0 ? (
+            <ProfilePostContainer
+              foundUser={foundUser}
+              posts={foundUser.posts}
+            />
+          ) : (
+            <div className="no-post">
+              <i class="fas fa-camera-retro "></i>
+              <span className="text">No Posts Yet</span>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import ProfilePost from "../ProfilePost/ProfilePost";
 import PostDetails from "../../PostDetails/PostDetails";
 import Backdrop from "../../../Backdrop/Backdrop";
+import { useHistory } from "react-router-dom";
 import { fetchPosts } from "../../../../actions/posts";
 import { toggleOnBackdrop, toggleOffBackdrop } from "../../../../actions/utils";
 import { connect } from "react-redux";
@@ -15,13 +16,17 @@ const ProfilePostContainer = ({
   backdrop,
   toggleOnBackdrop,
   toggleOffBackdrop,
+  isAuthenticated,
 }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     let tmp = [];
+
+    // console.log(posts);
 
     posts.forEach(async (id) => {
       axios.get(`/api/posts/${id.post}`).then((res) => {
@@ -38,17 +43,22 @@ const ProfilePostContainer = ({
     });
   }, [backdrop, foundUser]);
 
+  const onClick = (post) => {
+    if (isAuthenticated) {
+      setCurrentPost(post);
+      toggleOnBackdrop();
+    } else {
+      history.push(`/`);
+    }
+  };
+
   return (
     <div className="profile-post-container">
       <div className="profile-post-container-row">
         {loading &&
           userPosts.map((post) => (
             <ProfilePost
-              onClick={() => {
-                setCurrentPost(post);
-                // setBackdrop(true);
-                toggleOnBackdrop();
-              }}
+              onClick={() => onClick(post)}
               key={post._id}
               post={post}
             />
@@ -57,7 +67,6 @@ const ProfilePostContainer = ({
           <div className="backdrop-post-details">
             <Backdrop
               onClick={() => {
-                // setBackdrop(false);
                 toggleOffBackdrop();
                 setCurrentPost(null);
               }}
@@ -73,6 +82,7 @@ const ProfilePostContainer = ({
 const mapStateToProps = (state) => {
   return {
     backdrop: state.backdrop,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 

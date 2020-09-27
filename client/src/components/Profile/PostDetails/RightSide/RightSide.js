@@ -8,10 +8,10 @@ import "./RightSide.scss";
 
 const RightSide = ({ post, author, authUser }) => {
   let comment_info = {
-    username: authUser.username,
+    username: author.username,
     date: post.date,
     likes: [],
-    profileImg: authUser.profileImg,
+    profileImg: author.profileImg,
     text: post.caption,
   };
 

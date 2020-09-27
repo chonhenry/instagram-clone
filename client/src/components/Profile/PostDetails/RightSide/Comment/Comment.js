@@ -50,22 +50,25 @@ const Comment = ({
   };
 
   const likeComment = async () => {
-    try {
-      if (commentLiked) {
-        console.log("commentLiked");
-        let likeId = likes.find((like) => like.username === authUsername)._id;
-        await axios.put(
-          `/api/posts/comment/unlike/${postId}&${comment._id}&${likeId}`
-        );
-        setCommentLiked(false);
-        setLikesCount((prev) => prev - 1);
-      } else {
-        await axios.put(`/api/posts/comment/like/${postId}&${comment._id}`);
-        setCommentLiked(true);
-        setLikesCount((prev) => prev + 1);
-      }
-    } catch (error) {
-      console.log(error);
+    if (commentLiked) {
+      console.log("commentLiked");
+      let likeId = likes.find((like) => like.username === authUsername)._id;
+
+      axios
+        .put(`/api/posts/comment/unlike/${postId}&${comment._id}&${likeId}`)
+        .then(() => {
+          setCommentLiked(false);
+          setLikesCount((prev) => prev - 1);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .put(`/api/posts/comment/like/${postId}&${comment._id}`)
+        .then(() => {
+          setCommentLiked(true);
+          setLikesCount((prev) => prev + 1);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -87,8 +90,11 @@ const Comment = ({
 
         <div className="comment-stats">
           {`${find_time_diff()}`}
-          {!isCaption && (
-            <strong className="like-count">{`${likesCount} like`}</strong>
+          {!isCaption && likesCount > 0 && (
+            // <strong className="like-count">{`${likesCount} like`}</strong>
+            <strong className="like-count">{`${likesCount} ${
+              likesCount > 1 ? "likes" : "like"
+            }`}</strong>
           )}
         </div>
       </div>
