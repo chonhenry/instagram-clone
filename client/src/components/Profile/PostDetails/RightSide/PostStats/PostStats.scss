@@ -22,6 +22,24 @@
     .red-heart {
       color: #fb3958;
     }
+
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+      font-size: 21px;
+
+      &:hover {
+        cursor: default;
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
 
   .likes-count {

@@ -51,21 +51,24 @@ const Comment = ({
 
   const likeComment = async () => {
     if (commentLiked) {
-      console.log("commentLiked");
       let likeId = likes.find((like) => like.username === authUsername)._id;
+      setLikeLoading(true);
 
       axios
         .put(`/api/posts/comment/unlike/${postId}&${comment._id}&${likeId}`)
         .then(() => {
           setCommentLiked(false);
+          setLikeLoading(false);
           setLikesCount((prev) => prev - 1);
         })
         .catch((err) => console.log(err));
     } else {
+      setLikeLoading(true);
       axios
         .put(`/api/posts/comment/like/${postId}&${comment._id}`)
         .then(() => {
           setCommentLiked(true);
+          setLikeLoading(false);
           setLikesCount((prev) => prev + 1);
         })
         .catch((err) => console.log(err));
@@ -91,7 +94,6 @@ const Comment = ({
         <div className="comment-stats">
           {`${find_time_diff()}`}
           {!isCaption && likesCount > 0 && (
-            // <strong className="like-count">{`${likesCount} like`}</strong>
             <strong className="like-count">{`${likesCount} ${
               likesCount > 1 ? "likes" : "like"
             }`}</strong>
@@ -99,12 +101,15 @@ const Comment = ({
         </div>
       </div>
       <div className="like-comment">
-        {!isCaption && !likeLoading && (
-          <i
-            onClick={() => likeComment()}
-            className={`far fa-heart ${commentLiked ? "comment-liked" : ""}`}
-          />
-        )}
+        {!isCaption &&
+          (!likeLoading ? (
+            <i
+              onClick={() => likeComment()}
+              className={`far fa-heart ${commentLiked ? "comment-liked" : ""}`}
+            />
+          ) : (
+            <i className="fas fa-spinner" />
+          ))}
       </div>
     </div>
   );

@@ -24,11 +24,15 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
   const onClick = async () => {
     try {
       if (postLiked) {
+        setLoading(true);
         await axios.put(`/api/posts/unlike/${postId}`);
+        setLoading(false);
         setPostLiked(false);
         setLikesCount((prev) => prev - 1);
       } else {
+        setLoading(true);
         await axios.put(`/api/posts/like/${postId}`);
+        setLoading(false);
         setPostLiked(true);
         setLikesCount((prev) => prev + 1);
       }
@@ -40,15 +44,18 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
   return (
     <div className="post-stats">
       <div className="like-btn">
-        {!loading &&
-          (postLiked ? (
+        {!loading ? (
+          postLiked ? (
             <i
               className="fas fa-heart fa-2x heart red-heart"
               onClick={onClick}
             ></i>
           ) : (
             <i className="far fa-heart fa-2x heart" onClick={onClick}></i>
-          ))}
+          )
+        ) : (
+          <i className="fas fa-spinner"></i>
+        )}
       </div>
       <div className="likes-count">
         <strong>{`${likesCount} likes`}</strong>

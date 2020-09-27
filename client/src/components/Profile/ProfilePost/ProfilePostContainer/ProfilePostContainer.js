@@ -26,8 +26,6 @@ const ProfilePostContainer = ({
   useEffect(() => {
     let tmp = [];
 
-    // console.log(posts);
-
     posts.forEach(async (id) => {
       axios.get(`/api/posts/${id.post}`).then((res) => {
         tmp.unshift(res.data);
