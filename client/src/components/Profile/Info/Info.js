@@ -215,9 +215,9 @@ const Info = ({
       <div className="info-container-mobile">
         <div className="name-bio-mobile">
           <div className="name-mobile">
-            <strong>{"user.name"}</strong>
+            <strong>{foundUser.username}</strong>
           </div>
-          <div className="bio-mobile">{"user.bio"}</div>
+          <div className="bio-mobile">{foundUser.bio}</div>
         </div>
 
         <div className="posts-followers-following-count-mobile">

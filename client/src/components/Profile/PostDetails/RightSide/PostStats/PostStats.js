@@ -46,12 +46,9 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
       <div className="like-btn">
         {!loading ? (
           postLiked ? (
-            <i
-              className="fas fa-heart fa-2x heart red-heart"
-              onClick={onClick}
-            ></i>
+            <i className="fas fa-heart heart red-heart" onClick={onClick}></i>
           ) : (
-            <i className="far fa-heart fa-2x heart" onClick={onClick}></i>
+            <i className="far fa-heart heart" onClick={onClick}></i>
           )
         ) : (
           <i className="fas fa-spinner"></i>

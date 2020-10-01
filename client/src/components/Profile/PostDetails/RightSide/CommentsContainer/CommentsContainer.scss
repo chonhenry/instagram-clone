@@ -1,11 +1,36 @@
 .comments-container {
   //background-color: yellowgreen;
-  height: 378px;
+  height: 400px;
   padding-top: 18px;
   border-bottom: 1px solid lightgray;
   overflow: auto;
 
   &::-webkit-scrollbar {
     width: 0 !important;
+  }
+
+  .more-comment {
+    // background-color: red;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    //text-align: center;
+    margin-bottom: 30px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .plus {
+      margin: auto;
+      font-size: 24px;
+      border: 1px solid black;
+      height: 24px;
+      width: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
   }
 }

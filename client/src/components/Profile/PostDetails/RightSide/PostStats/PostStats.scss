@@ -1,7 +1,7 @@
 .post-stats {
   //background-color: palegreen;
   border-bottom: 1px solid lightgray;
-  height: 90px;
+  height: 78px;
   padding-left: 12px;
   display: flex;
   flex-direction: column;
@@ -14,6 +14,8 @@
     align-items: center;
 
     .heart {
+      font-size: 24px;
+
       &:hover {
         cursor: pointer;
       }
@@ -43,7 +45,7 @@
   }
 
   .likes-count {
-    margin: 6px 0 6px 0;
+    margin: 0 0 6px 0;
   }
 
   .date {

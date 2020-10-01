@@ -35,7 +35,8 @@
 
 @media (max-width: 700px) {
   .left-side {
-    visibility: hidden;
-    flex: 0;
+    display: none;
+    // visibility: hidden;
+    // flex: 0;
   }
 }
