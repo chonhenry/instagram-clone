@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  FIND_USER_SUCCESS,
-  FIND_USER_FAIL,
-  UPDATE_SUCCESS,
-  UPDATE_FAIL,
-} from "./type";
+import { FIND_USER_SUCCESS, FIND_USER_FAIL } from "./type";
 
 // find user
 export const findUser = (username) => async (dispatch) => {
@@ -23,4 +18,3 @@ export const findUser = (username) => async (dispatch) => {
     });
   }
 };
-

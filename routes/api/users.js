@@ -24,6 +24,23 @@ router.get("/:username", async (req, res) => {
   }
 });
 
+// @route     GET /api/users/search/:search
+// @desc      search users
+// @access    Public
+router.get("/search/:search", async (req, res) => {
+  try {
+    const users = await User.find({ username: { $regex: req.params.search } }, [
+      "username",
+      "name",
+      "profileImg",
+    ]);
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route     GET /api/users/following/:username
 // @desc      find following users
 // @access    Public

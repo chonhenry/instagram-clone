@@ -27,16 +27,26 @@
     }
 
     .search-box {
+      position: relative;
       width: 200px;
-      input {
-        width: 100%;
-        padding: 5px 10px;
-        text-align: center;
 
-        &:focus {
-          outline: none;
-          text-align: left;
+      .search-box-form {
+        width: 100%;
+
+        input {
+          width: 100%;
+          padding: 5px 10px;
+          text-align: center;
+
+          &:focus {
+            outline: none;
+            text-align: left;
+          }
         }
+      }
+
+      .search-results {
+        position: absolute;
       }
     }
 
@@ -112,6 +122,14 @@
 
       .profile-img-container {
         width: 90px;
+      }
+
+      .login-signup {
+        .login,
+        .signup {
+          width: 50px;
+          font-size: 12px;
+        }
       }
     }
   }

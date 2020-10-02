@@ -1,0 +1,17 @@
+.search-container {
+  position: absolute;
+  margin-top: 6px;
+  width: 240px;
+  max-height: 360px;
+  border-radius: 3px;
+  overflow: auto;
+  border: 1px solid lightgray;
+  transform: translateX(-20px);
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    width: 200px;
+    transform: translateX(-55px);
+  }
+}

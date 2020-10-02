@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { findUser } from "../../../../../actions/user";
 import { toggleOffBackdrop } from "../../../../../actions/utils";
@@ -124,11 +124,3 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { findUser, toggleOffBackdrop })(
   Comment
 );
-
-// date: "2020-09-22T11:39:13.152Z"
-// likes: []
-// profileImg: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD"
-// text: "second comment from Christine"
-// user_id: "5f4475550900dc0d32fe1cb7"
-// username: "christine"
-// _id: "5f69e261a44ce40f46b9b6ea"

@@ -5,9 +5,9 @@ import "./ProfilePost.scss";
 const ProfilePost = ({ post, onClick }) => {
   const { comments, likes, image } = post;
 
-  useEffect(() => {
-    // console.log(image.length);
-  }, []);
+  // useEffect(() => {
+  //   console.log(post);
+  // }, []);
 
   return (
     <div className="profile-post-box" onClick={onClick}>

@@ -29,6 +29,7 @@ const ProfilePostContainer = ({
     posts.forEach(async (id) => {
       axios.get(`/api/posts/${id.post}`).then((res) => {
         tmp.unshift(res.data);
+        // console.log(res.data);
 
         if (posts.length === tmp.length) {
           tmp.sort((a, b) => {

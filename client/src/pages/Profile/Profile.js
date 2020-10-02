@@ -10,7 +10,14 @@ import { findUser } from "../../actions/user";
 
 import "./Profile.scss";
 
-const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
+const Profile = ({
+  loading,
+  isAuthenticated,
+  match,
+  findUser,
+  foundUser,
+  foundUserLoading,
+}) => {
   useEffect(() => {
     async function fetchData() {
       if (isAuthenticated) {
@@ -27,9 +34,9 @@ const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
     <div>
       {!loading && <Navbar />}
 
-      {!foundUser ? (
+      {foundUserLoading ? (
         <Loading />
-      ) : (
+      ) : foundUser ? (
         <div className="profile-page">
           <Info foundUser={foundUser} />
           {foundUser.posts.length > 0 ? (
@@ -39,10 +46,14 @@ const Profile = ({ loading, isAuthenticated, match, findUser, foundUser }) => {
             />
           ) : (
             <div className="no-post">
-              <i class="fas fa-camera-retro "></i>
+              <i className="fas fa-camera-retro "></i>
               <span className="text">No Posts Yet</span>
             </div>
           )}
+        </div>
+      ) : (
+        <div className="not-found">
+          <strong>No User Found</strong>
         </div>
       )}
     </div>
@@ -55,24 +66,8 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     loading: state.auth.loading,
     foundUser: state.user.user,
+    foundUserLoading: state.user.loading,
   };
 };
 
 export default connect(mapStateToProps, { loadUser, findUser })(Profile);
-
-// const findUser = async () => {
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   };
-
-//   const res = await axios.get(
-//     `/api/users/${match.params.username}`,
-//     null,
-//     config
-//   );
-
-//   setChosenUser(res.data);
-//   setChosenUserLoading(false);
-// };
