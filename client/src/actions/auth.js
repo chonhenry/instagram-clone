@@ -7,6 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  LOADING,
 } from "./type";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -68,6 +69,10 @@ export const login = (email, password) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ email, password });
+
+  dispatch({
+    type: LOADING,
+  });
 
   try {
     const res = await axios.post("/api/auth/login", body, config);

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Author.scss";
 
-const Author = ({ image, username, authorId, followingList, self, postId }) => {
+const Author = ({ image, username, self, postId, latest }) => {
   const history = useHistory();
   const [deleting, setDeleting] = useState(false);
 
@@ -17,12 +18,26 @@ const Author = ({ image, username, authorId, followingList, self, postId }) => {
   };
 
   return (
-    <div className="author-container">
+    <div className={`author-container ${latest && "latest"}`}>
       <div className="author-info">
-        <img className="author-img margin-right" src={image} />
-        <div className="author-username margin-right">{username}</div>
-        {/* {!self && <div className="margin-right">•</div>}
-        {!self && <div>Following</div>} */}
+        {latest ? (
+          <Fragment>
+            <Link to={`/${username}`}>
+              <img className="author-img margin-right" src={image} />
+            </Link>
+            <Link
+              className="author-username margin-right username-link"
+              to={`/${username}`}
+            >
+              {username}
+            </Link>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <img className="author-img margin-right" src={image} />
+            <div className="author-username margin-right">{username}</div>
+          </Fragment>
+        )}
       </div>
 
       {self && (

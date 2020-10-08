@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ig from "../../assets/image/instagram.png";
 import Dropdown from "../Dropdown/Dropdown";
 import SearchContainer from "./SearchContainer/SearchContainer";
@@ -19,7 +19,6 @@ const Navbar = ({
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const history = useHistory();
 
   const onSearchSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +41,10 @@ const Navbar = ({
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onClick = () => {
+    setSearchInput("");
   };
 
   const toggle_on_dropdown = () => {
@@ -75,7 +78,9 @@ const Navbar = ({
           onChange={(e) => onInputChange(e)}
         />
       </form>
-      {searchResults.length > 0 && <SearchContainer results={searchResults} />}
+      {searchResults.length > 0 && (
+        <SearchContainer results={searchResults} onClick={onClick} />
+      )}
     </div>
   );
 

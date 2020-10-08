@@ -22,7 +22,12 @@
     }
 
     .margin-right {
-      margin-right: 6px;
+      margin-right: 12px;
+    }
+
+    .username-link {
+      text-decoration: none;
+      color: black;
     }
   }
 
@@ -50,4 +55,8 @@
       }
     }
   }
+}
+
+.latest {
+  height: 60px;
 }

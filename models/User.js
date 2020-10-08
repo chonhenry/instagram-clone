@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     {
       post: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "posts",
+        ref: "post",
       },
     },
   ],
@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
+        ref: "user",
       },
       username: {
         type: String,
@@ -61,7 +61,7 @@ const UserSchema = new mongoose.Schema({
     {
       user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
+        ref: "user",
       },
       username: {
         type: String,

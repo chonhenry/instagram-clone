@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./WriteComment.scss";
 
-const WriteComment = ({ postId, image }) => {
+const WriteComment = ({ postId, image, latest }) => {
   const [comment, setComment] = useState("");
   const [textareaHeight, setTextareaHeight] = useState("one-row");
   const textareaRef = useRef();
@@ -42,11 +42,11 @@ const WriteComment = ({ postId, image }) => {
 
   return (
     <div className="write-comment-container">
-      <form className="comment-form" onSubmit={(e) => onSubmit(e)}>
+      <form className={`comment-form`} onSubmit={(e) => onSubmit(e)}>
         <textarea
           onChange={(e) => onChange(e)}
           value={comment}
-          className={`comment-input ${textareaHeight}`}
+          className={`comment-input ${textareaHeight} ${latest && "latest"}`}
           placeholder="Add a comment..."
           ref={textareaRef}
         />

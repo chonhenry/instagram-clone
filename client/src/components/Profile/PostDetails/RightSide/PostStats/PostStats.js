@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PostStats.scss";
 
-const PostStats = ({ postId, likes, authUsername, date }) => {
+const PostStats = ({ postId, likes, authUsername, date, latest }) => {
   const [postLiked, setPostLiked] = useState(false);
   const [loading, setLoading] = useState(true);
   const [likesCount, setLikesCount] = useState(likes.length);
@@ -17,8 +17,10 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
       setLoading(false);
     });
 
-    let tmp = new Date(date.slice(0, 10));
-    setFormattedDate(tmp.toString().slice(4, 15));
+    if (!latest) {
+      let tmp = new Date(date.slice(0, 10));
+      setFormattedDate(tmp.toString().slice(4, 15));
+    }
   }, []);
 
   const onClick = async () => {
@@ -42,7 +44,7 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
   };
 
   return (
-    <div className="post-stats">
+    <div className={`post-stats ${latest && "latest"}`}>
       <div className="like-btn">
         {!loading ? (
           postLiked ? (
@@ -57,7 +59,7 @@ const PostStats = ({ postId, likes, authUsername, date }) => {
       <div className="likes-count">
         <strong>{`${likesCount} likes`}</strong>
       </div>
-      <div className="date">{formattedDate}</div>
+      {!latest && <div className="date">{formattedDate}</div>}
     </div>
   );
 };

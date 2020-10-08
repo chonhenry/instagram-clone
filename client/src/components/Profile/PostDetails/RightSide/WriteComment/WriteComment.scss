@@ -1,5 +1,5 @@
 .write-comment-container {
-  //background-color: peru;
+  // background-color: peru;
   height: 50px;
   display: flex;
   justify-content: center;
@@ -21,6 +21,10 @@
       &:focus {
         outline: none;
       }
+    }
+
+    .latest {
+      width: 90%;
     }
 
     .one-row {

@@ -2,9 +2,9 @@ import React from "react";
 import Search from "../Search/Search";
 import "./SearchContainer.scss";
 
-const SearchContainer = ({ results }) => {
+const SearchContainer = ({ results, onClick }) => {
   return (
-    <div className="search-container">
+    <div className="search-container" onClick={onClick}>
       {results.map((result) => (
         <Search
           key={result._id}

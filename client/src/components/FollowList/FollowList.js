@@ -10,12 +10,18 @@ const FollowList = ({ type, list, followingList }) => {
     else return false;
   };
 
+  const handleScroll = (e) => {
+    if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
+      console.log("bottom");
+    }
+  };
+
   return (
     <div className="follow-list">
       <div className="list-type">
         <strong>{type}</strong>
       </div>
-      <div className="user-list">
+      <div className="user-list" onScroll={(e) => handleScroll(e)}>
         {list.map((user) => (
           <UserListItem
             key={user._id}
