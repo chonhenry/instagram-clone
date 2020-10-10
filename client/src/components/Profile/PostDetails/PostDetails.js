@@ -3,11 +3,12 @@ import LeftSide from "../PostDetails/LeftSide/LeftSide";
 import RightSide from "../PostDetails/RightSide/RightSide";
 import "./PostDetails.scss";
 
-const PostDetails = ({ post }) => {
+const PostDetails = ({ post, mainPage }) => {
   const [currentImg, setCurrentImg] = useState(0);
 
   useEffect(() => {
     // console.log("post.image.length:", post.image.length);
+    // console.log(post);
   }, []);
 
   return (
@@ -17,7 +18,7 @@ const PostDetails = ({ post }) => {
         l_arrow={currentImg !== 0 ? true : false}
         r_arrow={currentImg !== post.image.length ? true : false}
       />
-      <RightSide post={post} />
+      <RightSide post={post} mainPage={mainPage} />
     </div>
   );
 };

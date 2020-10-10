@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import { connect } from "react-redux";
+import Navbar from "../../components/Navbar/Navbar";
 import LatestPost from "../../components/LatestPost/LatestPost";
+import Backdrop from "../../components/Backdrop/Backdrop";
+import PostDetails from "../../components/Profile/PostDetails/PostDetails";
+import {
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+  toggleOffDropdown,
+} from "../../actions/utils";
 import "./Main.scss";
 
-const Main = ({ loading, user }) => {
+const Main = ({
+  loading,
+  user,
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+  backdrop,
+}) => {
   const [latestPosts, setLatestPosts] = useState([]);
   const [followingUsers, setFollowingUsers] = useState([]);
+  const [currentPost, setCurrentPost] = useState(null);
   //const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
@@ -75,6 +89,12 @@ const Main = ({ loading, user }) => {
     }
   };
 
+  const showPostDetails = (post) => {
+    // console.log(post);
+    setCurrentPost(post);
+    toggleOnBackdrop();
+  };
+
   return (
     <div
       className="main"
@@ -87,6 +107,7 @@ const Main = ({ loading, user }) => {
       <div className="latest-posts-container">
         {latestPosts.map((post) => (
           <LatestPost
+            showPostDetails={() => showPostDetails(post)}
             key={post.postId}
             username={post.username}
             profileImg={post.profileImg}
@@ -98,6 +119,19 @@ const Main = ({ loading, user }) => {
             likes={post.likes}
           />
         ))}
+
+        {backdrop && <Backdrop onClick={() => toggleOffBackdrop()} />}
+        {backdrop && (
+          <div className="backdrop-post-details">
+            <Backdrop
+              onClick={() => {
+                toggleOffBackdrop();
+                // setCurrentPost(null);
+              }}
+            />
+            <PostDetails post={currentPost} mainPage={true} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -107,10 +141,14 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     user: state.auth.user,
+    backdrop: state.backdrop,
   };
 };
 
-export default connect(mapStateToProps, {})(Main);
+export default connect(mapStateToProps, {
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+})(Main);
 
 // for (let i = following.length - 1; i > 0; i--) {
 //   const j = Math.floor(Math.random() * i);

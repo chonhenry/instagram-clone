@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Author from "./Author/Author";
 import CommentsContainer from "./CommentsContainer/CommentsContainer";
 import PostStats from "./PostStats/PostStats";
@@ -6,41 +6,74 @@ import WriteComment from "./WriteComment/WriteComment";
 import { connect } from "react-redux";
 import "./RightSide.scss";
 
-const RightSide = ({ post, author, authUser }) => {
-  let comment_info = {
-    username: author.username,
-    date: post.date,
-    likes: [],
-    profileImg: author.profileImg,
-    text: post.caption,
+const RightSide = ({ post, author, authUser, mainPage }) => {
+  const profile_page = () => {
+    let comment_info = {
+      username: author.username,
+      date: post.date,
+      likes: [],
+      profileImg: author.profileImg,
+      text: post.caption,
+    };
+
+    return (
+      <div className="right-side">
+        <Author
+          image={author.profileImg}
+          username={post.createdByUsername}
+          self={author && author._id === authUser._id}
+          postId={post._id}
+        />
+        <CommentsContainer
+          comments={post.comments}
+          caption={comment_info}
+          postId={post._id}
+        />
+        <PostStats
+          postId={post._id}
+          likes={post.likes}
+          authUsername={authUser.username}
+          date={post.date}
+        />
+        <WriteComment postId={post._id} image={authUser.profileImg} />
+      </div>
+    );
   };
 
-  useEffect(() => {}, []);
+  const main_page = () => {
+    let comment_info = {
+      username: post.username,
+      date: post.date,
+      likes: [],
+      profileImg: post.profileImg,
+      text: post.caption,
+    };
 
-  return (
-    <div className="right-side">
-      <Author
-        image={author.profileImg}
-        username={post.createdByUsername}
-        authorId={author._id}
-        followingList={authUser.following}
-        self={author._id === authUser._id}
-        postId={post._id}
-      />
-      <CommentsContainer
-        comments={post.comments}
-        caption={comment_info}
-        postId={post._id}
-      />
-      <PostStats
-        postId={post._id}
-        likes={post.likes}
-        authUsername={authUser.username}
-        date={post.date}
-      />
-      <WriteComment postId={post._id} image={authUser.profileImg} />
-    </div>
-  );
+    return (
+      <div className="right-side">
+        <Author
+          image={post.profileImg}
+          username={post.username}
+          self={author && author._id === authUser._id}
+          postId={post._id}
+        />
+        <CommentsContainer
+          comments={post.comments}
+          caption={comment_info}
+          postId={post._id}
+        />
+        <PostStats
+          postId={post._id}
+          likes={post.likes}
+          authUsername={authUser.username}
+          date={post.date}
+        />
+        <WriteComment postId={post._id} image={authUser.profileImg} />
+      </div>
+    );
+  };
+
+  return mainPage ? main_page() : profile_page();
 };
 
 const mapStateToProps = (state) => {

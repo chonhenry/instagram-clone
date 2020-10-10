@@ -61,6 +61,7 @@ const ProfilePostContainer = ({
               post={post}
             />
           ))}
+
         {backdrop && (
           <div className="backdrop-post-details">
             <Backdrop
@@ -69,7 +70,7 @@ const ProfilePostContainer = ({
                 setCurrentPost(null);
               }}
             />
-            <PostDetails post={currentPost} />
+            <PostDetails post={currentPost} mainPage={false} />
           </div>
         )}
       </div>

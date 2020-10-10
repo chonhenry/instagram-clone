@@ -100,6 +100,7 @@ const Comment = ({
           )}
         </div>
       </div>
+
       <div className="like-comment">
         {!isCaption &&
           (!likeLoading ? (

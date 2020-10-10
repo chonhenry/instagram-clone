@@ -28,6 +28,10 @@ const Profile = ({
       }
     }
     fetchData();
+
+    return () => {
+      console.log("unmount");
+    };
   }, []);
 
   return (

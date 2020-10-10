@@ -1,11 +1,10 @@
 import React, { useState, Fragment } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Author.scss";
 
 const Author = ({ image, username, self, postId, latest }) => {
-  const history = useHistory();
   const [deleting, setDeleting] = useState(false);
 
   const onClick = async () => {

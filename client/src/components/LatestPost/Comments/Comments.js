@@ -1,8 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Comments.scss";
 
 const Comments = ({ username, text, caption }) => {
+  const [commentLiked, setCommentLiked] = useState(false);
+
+  const likeComment = () => {
+    console.log("like");
+  };
+
   return (
     <div className="comments">
       <div className="comments-text">
@@ -13,7 +19,9 @@ const Comments = ({ username, text, caption }) => {
         {text}
       </div>
 
-      {!caption && <i className={`far fa-heart`} />}
+      {/* {!caption && (
+        <i className={`far fa-heart`} onClick={() => likeComment()} />
+      )} */}
     </div>
   );
 };

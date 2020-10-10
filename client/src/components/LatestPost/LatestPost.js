@@ -4,6 +4,8 @@ import PostStats from "../Profile/PostDetails/RightSide/PostStats/PostStats";
 import WriteComment from "../Profile/PostDetails/RightSide/WriteComment/WriteComment";
 import Comments from "./Comments/Comments";
 import Gallery from "./Gallery/Gallery";
+import Backdrop from "../Backdrop/Backdrop";
+import { toggleOnBackdrop, toggleOffBackdrop } from "../../actions/utils";
 import { connect } from "react-redux";
 import "./LatestPost.scss";
 
@@ -17,6 +19,10 @@ const LatestPost = ({
   date,
   images,
   likes,
+  backdrop,
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+  showPostDetails,
 }) => {
   const getDate = () => {
     //let tmp = new Date(date.slice(0, 10)).toString().slice(4, 15);
@@ -48,16 +54,28 @@ const LatestPost = ({
             self={false}
             latest={true}
           />
+
           {/* <PostStats
             postId={"123456"}
             likes={[]}
             authUsername={authUser.username}
             latest={true}
           /> */}
+
           <Gallery images={images} />
+
           <Comments username={username} text={caption} caption={true} />
+
+          {comments.length > 0 && (
+            <div
+              className="view-all-comments"
+              onClick={() => showPostDetails()}
+            >
+              View all comments
+            </div>
+          )}
+
           {comments.length > 0 &&
-            // <Comments username={comments[0].username} text={comments[0].text} />
             comments
               .slice(0, 2)
               .map((comment) => (
@@ -68,10 +86,15 @@ const LatestPost = ({
                 />
               ))}
 
-          <div className="date" onClick={() => console.log(comments)}>
-            {getDate()}
-          </div>
-          <WriteComment postId={postId} image={profileImg} latest={true} />
+          <div className="date">{getDate()}</div>
+
+          <WriteComment
+            postId={postId}
+            image={authUser.profileImg}
+            latest={true}
+          />
+
+          {/* {backdrop && <Backdrop onClick={() => toggleOffBackdrop()} />} */}
         </Fragment>
       )}
     </div>
@@ -81,14 +104,18 @@ const LatestPost = ({
 const mapStateToProps = (state) => {
   return {
     authUser: state.auth.user,
+    backdrop: state.backdrop,
   };
 };
 
-export default connect(mapStateToProps)(LatestPost);
+export default connect(mapStateToProps, {
+  toggleOnBackdrop,
+  toggleOffBackdrop,
+})(LatestPost);
 
 // author--
 // poststats
 // gallery--
-// comments
+// comments--
 // date--
 // writecomments--
