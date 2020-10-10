@@ -11,8 +11,6 @@ const Main = ({ loading, user }) => {
   //const [selectedUsers, setSelectedUsers] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect");
-
     if (!loading) {
       let following = [...user.following];
       setFollowingUsers(following);
@@ -37,18 +35,17 @@ const Main = ({ loading, user }) => {
     // get post from selected users
     selectedUsers.forEach(async (user) => {
       const resUser = await axios.get(`/api/users/${user.username}`);
-      //console.log(resUser.data);
 
       // find post that has not been shown yet
       let postId = resUser.data.posts.find((id) => {
-        //console.log("id", id.post);
         if (latestPosts.find((id2) => id2.postId === id.post) === undefined)
           return id.post;
       });
 
       if (postId) {
+        // if postId has not been shown yet
         const resPost = await axios.get(`/api/posts/${postId.post}`);
-        console.log(resPost.data);
+
         setLatestPosts((prev) => [
           ...prev,
           {
@@ -56,6 +53,10 @@ const Main = ({ loading, user }) => {
             profileImg: resUser.data.profileImg,
             postId: postId.post,
             caption: resPost.data.caption,
+            comments: resPost.data.comments,
+            date: resPost.data.date,
+            image: resPost.data.image,
+            likes: resPost.data.likes,
           },
         ]);
       }
@@ -78,9 +79,9 @@ const Main = ({ loading, user }) => {
     <div
       className="main"
       onScroll={(e) => handleScroll(e)}
-      onClick={() => {
-        console.log(latestPosts);
-      }}
+      // onClick={() => {
+      //   console.log(latestPosts);
+      // }}
     >
       {user && <Navbar />}
       <div className="latest-posts-container">
@@ -91,6 +92,10 @@ const Main = ({ loading, user }) => {
             profileImg={post.profileImg}
             caption={post.caption}
             postId={post.postId}
+            comments={post.comments}
+            date={post.date}
+            images={post.image}
+            likes={post.likes}
           />
         ))}
       </div>

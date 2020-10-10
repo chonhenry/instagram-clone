@@ -1,11 +1,19 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import "./Comments.scss";
 
-const Comments = ({ username, caption }) => {
+const Comments = ({ username, text, caption }) => {
   return (
     <div className="comments">
-      {<strong>{`${username} `}</strong>}
-      {caption}
+      <div className="comments-text">
+        <Link to={`/${username}`} className="username-link">
+          {<strong>{`${username} `}</strong>}
+        </Link>
+
+        {text}
+      </div>
+
+      {!caption && <i className={`far fa-heart`} />}
     </div>
   );
 };
@@ -13,3 +21,4 @@ const Comments = ({ username, caption }) => {
 export default Comments;
 
 // Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+// character count 90
