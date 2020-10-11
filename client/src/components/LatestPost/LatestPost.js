@@ -4,7 +4,6 @@ import PostStats from "../Profile/PostDetails/RightSide/PostStats/PostStats";
 import WriteComment from "../Profile/PostDetails/RightSide/WriteComment/WriteComment";
 import Comments from "./Comments/Comments";
 import Gallery from "./Gallery/Gallery";
-import Backdrop from "../Backdrop/Backdrop";
 import { toggleOnBackdrop, toggleOffBackdrop } from "../../actions/utils";
 import { connect } from "react-redux";
 import "./LatestPost.scss";
@@ -19,9 +18,6 @@ const LatestPost = ({
   date,
   images,
   likes,
-  backdrop,
-  toggleOnBackdrop,
-  toggleOffBackdrop,
   showPostDetails,
 }) => {
   const getDate = () => {
@@ -55,14 +51,14 @@ const LatestPost = ({
             latest={true}
           />
 
-          {/* <PostStats
-            postId={"123456"}
-            likes={[]}
+          <Gallery images={images} />
+
+          <PostStats
+            postId={postId}
+            likes={likes}
             authUsername={authUser.username}
             latest={true}
-          /> */}
-
-          <Gallery images={images} />
+          />
 
           <Comments username={username} text={caption} caption={true} />
 

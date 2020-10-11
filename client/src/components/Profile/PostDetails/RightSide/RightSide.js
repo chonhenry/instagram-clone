@@ -63,7 +63,7 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
           postId={post._id}
         />
         <PostStats
-          postId={post._id}
+          postId={post.postId}
           likes={post.likes}
           authUsername={authUser.username}
           date={post.date}

@@ -1,12 +1,11 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Info from "../../components/Profile/Info/Info";
 import ProfilePostContainer from "../../components/Profile/ProfilePost/ProfilePostContainer/ProfilePostContainer";
 import Loading from "../../components/Loading/Loading";
-import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
-import { findUser } from "../../actions/user";
+import { findUser, clearUser } from "../../actions/user";
 
 import "./Profile.scss";
 
@@ -17,6 +16,7 @@ const Profile = ({
   findUser,
   foundUser,
   foundUserLoading,
+  clearUser,
 }) => {
   useEffect(() => {
     async function fetchData() {
@@ -30,7 +30,7 @@ const Profile = ({
     fetchData();
 
     return () => {
-      console.log("unmount");
+      clearUser();
     };
   }, []);
 
@@ -74,4 +74,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loadUser, findUser })(Profile);
+export default connect(mapStateToProps, { loadUser, findUser, clearUser })(
+  Profile
+);

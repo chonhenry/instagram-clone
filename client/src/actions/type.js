@@ -15,6 +15,7 @@ export const UPDATE_FAIL = "UPDATE_FAIL";
 // find user
 export const FIND_USER_SUCCESS = "FIND_USER_SUCCESS";
 export const FIND_USER_FAIL = "FIND_USER_FAIL";
+export const CLEAR_USER = "CLEAR_USER";
 
 // get following users
 export const GET_FOLLOWING_USER_SUCCESS = "GET_FOLLOWING_USER_SUCCESS";

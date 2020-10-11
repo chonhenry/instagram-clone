@@ -3,6 +3,7 @@ import {
   FIND_USER_FAIL,
   LOGOUT,
   LOGIN_SUCCESS,
+  CLEAR_USER,
 } from "../actions/type";
 
 const initialState = {
@@ -23,9 +24,10 @@ export default function (state = initialState, action) {
     // case LOGIN_SUCCESS:
     case LOGOUT:
     case FIND_USER_FAIL:
+    case CLEAR_USER:
       return {
         ...state,
-        loading: false,
+        loading: true,
         user: null,
       };
     default:

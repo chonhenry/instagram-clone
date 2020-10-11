@@ -44,7 +44,7 @@ const PostStats = ({ postId, likes, authUsername, date, latest }) => {
   };
 
   return (
-    <div className={`post-stats ${latest && "latest"}`}>
+    <div className={`post-stats ${latest && "latest-post-stats"}`}>
       <div className="like-btn">
         {!loading ? (
           postLiked ? (
@@ -56,9 +56,11 @@ const PostStats = ({ postId, likes, authUsername, date, latest }) => {
           <i className="fas fa-spinner"></i>
         )}
       </div>
+
       <div className="likes-count">
-        <strong>{`${likesCount} likes`}</strong>
+        <strong>{`${likesCount} like${likesCount > 1 ? "s" : ""}`}</strong>
       </div>
+
       {!latest && <div className="date">{formattedDate}</div>}
     </div>
   );

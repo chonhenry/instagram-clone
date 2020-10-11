@@ -121,6 +121,7 @@ const Main = ({
         ))}
 
         {backdrop && <Backdrop onClick={() => toggleOffBackdrop()} />}
+
         {backdrop && (
           <div className="backdrop-post-details">
             <Backdrop
