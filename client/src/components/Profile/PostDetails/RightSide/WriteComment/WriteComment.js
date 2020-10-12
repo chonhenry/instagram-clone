@@ -2,12 +2,12 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./WriteComment.scss";
 
-const WriteComment = ({ postId, image, latest }) => {
+const WriteComment = ({ postId, image, latest, addNewComment,post }) => {
   const [comment, setComment] = useState("");
   const [textareaHeight, setTextareaHeight] = useState("one-row");
   const textareaRef = useRef();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (comment.length) {
       const config = {
@@ -22,7 +22,9 @@ const WriteComment = ({ postId, image, latest }) => {
       });
 
       try {
-        axios.put(`/api/posts/comment/${postId}`, body, config);
+        let post = await axios.put(`/api/posts/comment/${postId}`, body, config);
+        console.log(post.data.comments[0].text)
+        addNewComment(post.data.comments[0], comment)
       } catch (error) {
         console.log(error);
       }
@@ -33,6 +35,7 @@ const WriteComment = ({ postId, image, latest }) => {
 
   const onChange = (e) => {
     setComment(e.target.value);
+    console.log(e.target.value)
     let height = textareaRef.current.scrollHeight;
 
     if (height <= 18 || comment === "") setTextareaHeight("one-row");

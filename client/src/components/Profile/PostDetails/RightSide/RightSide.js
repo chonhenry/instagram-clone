@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Author from "./Author/Author";
 import CommentsContainer from "./CommentsContainer/CommentsContainer";
 import PostStats from "./PostStats/PostStats";
@@ -7,6 +7,12 @@ import { connect } from "react-redux";
 import "./RightSide.scss";
 
 const RightSide = ({ post, author, authUser, mainPage }) => {
+  const [commentsArray, setCommentsArray] = useState(post.comments)
+
+  const addNewComment = (comment, text)=>{
+    setCommentsArray(prev=>[...prev,comment]);
+  }
+
   const profile_page = () => {
     let comment_info = {
       username: author.username,
@@ -25,7 +31,7 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
           postId={post._id}
         />
         <CommentsContainer
-          comments={post.comments}
+          comments={commentsArray}
           caption={comment_info}
           postId={post._id}
         />
@@ -35,7 +41,7 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
           authUsername={authUser.username}
           date={post.date}
         />
-        <WriteComment postId={post._id} image={authUser.profileImg} />
+        <WriteComment postId={post._id} image={authUser.profileImg} addNewComment={addNewComment}/>
       </div>
     );
   };
@@ -58,7 +64,7 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
           postId={post._id}
         />
         <CommentsContainer
-          comments={post.comments}
+          comments={commentsArray}
           caption={comment_info}
           postId={post._id}
         />
@@ -68,7 +74,7 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
           authUsername={authUser.username}
           date={post.date}
         />
-        <WriteComment postId={post._id} image={authUser.profileImg} />
+        <WriteComment postId={post.postId} image={authUser.profileImg} addNewComment={addNewComment}/>
       </div>
     );
   };

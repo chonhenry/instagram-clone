@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Comment from "../Comment/Comment";
+import { connect } from "react-redux";
 import "./CommentsContainer.scss";
 
-const CommentsContainer = ({ comments, caption, postId }) => {
+const CommentsContainer = ({ comments, caption, postId,authUser }) => {
   const [commentsCount, setCommentsCount] = useState(6);
 
   const onClick = () => {
@@ -12,17 +13,23 @@ const CommentsContainer = ({ comments, caption, postId }) => {
   return (
     <div className="comments-container">
       <Comment comment={caption} isCaption={true} />
-      {comments.slice(0, commentsCount).map((comment) => (
+      {comments.map((comment) => (
         <Comment key={comment._id} comment={comment} postId={postId} />
       ))}
 
-      {commentsCount <= comments.length && (
+      {/* {commentsCount <= comments.length && (
         <div className="more-comment" onClick={onClick}>
           <span className="plus">+</span>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
 
-export default CommentsContainer;
+const mapStateToProps = (state) => {
+  return {
+    authUser: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(CommentsContainer);

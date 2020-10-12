@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Author from "../Profile/PostDetails/RightSide/Author/Author";
 import PostStats from "../Profile/PostDetails/RightSide/PostStats/PostStats";
 import WriteComment from "../Profile/PostDetails/RightSide/WriteComment/WriteComment";
@@ -20,6 +20,8 @@ const LatestPost = ({
   likes,
   showPostDetails,
 }) => {
+  const [commentsArray, setCommentsArray] = useState(comments)
+
   const getDate = () => {
     //let tmp = new Date(date.slice(0, 10)).toString().slice(4, 15);
     let time_diff;
@@ -39,6 +41,11 @@ const LatestPost = ({
 
     return time_diff;
   };
+
+  const addNewComment = (comment, text)=>{
+    let newComment = {username:authUser.username, text:text, _id:comment._id}
+    setCommentsArray(prev=>[...prev,newComment])
+  }
 
   return (
     <div className="latest-post">
@@ -62,17 +69,17 @@ const LatestPost = ({
 
           <Comments username={username} text={caption} caption={true} />
 
-          {comments.length > 0 && (
+          {commentsArray.length > 0 && (
             <div
               className="view-all-comments"
               onClick={() => showPostDetails()}
             >
-              View all comments
-            </div>
+             View all comments
+           </div>
           )}
 
-          {comments.length > 0 &&
-            comments
+          {commentsArray.length > 0 &&
+            commentsArray
               .slice(0, 2)
               .map((comment) => (
                 <Comments
@@ -88,9 +95,8 @@ const LatestPost = ({
             postId={postId}
             image={authUser.profileImg}
             latest={true}
+            addNewComment={addNewComment}
           />
-
-          {/* {backdrop && <Backdrop onClick={() => toggleOffBackdrop()} />} */}
         </Fragment>
       )}
     </div>
