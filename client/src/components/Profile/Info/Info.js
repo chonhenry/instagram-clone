@@ -27,6 +27,7 @@ const Info = ({
   const [authorization, setAuthorization] = useState(false);
   const [isFollowing, setIsFollowing] = useState(null);
   const [followersFollowing, setFollowersFollowing] = useState(null);
+  const [followLoading, setFollowLoading] = useState(false)
   const [followersCount, setFollowersCount] = useState(
     foundUser.followers.length
   );
@@ -92,20 +93,31 @@ const Info = ({
   };
 
   const followUser = async () => {
-    try {
-      await axios.put(`/api/users/follow/${foundUser._id}`);
-      setIsFollowing(true);
-    } catch (error) {
-      console.log(error);
+    if(!followLoading){
+      try {
+        setFollowLoading(true)
+        await axios.put(`/api/users/follow/${foundUser._id}`);
+        setIsFollowing(true);
+        setFollowLoading(false)
+        setFollowersCount(prev=>prev+1)
+      } catch (error) {
+        console.log(error);
+      }
     }
+
   };
 
   const unFollowUser = async () => {
-    try {
-      await axios.put(`/api/users/unfollow/${foundUser._id}`);
-      setIsFollowing(false);
-    } catch (error) {
-      console.log(error);
+    if(!followLoading){
+      try {
+        setFollowLoading(true)
+        await axios.put(`/api/users/unfollow/${foundUser._id}`);
+        setIsFollowing(false);
+        setFollowLoading(false)
+        setFollowersCount(prev=>prev-1)
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -170,6 +182,21 @@ const Info = ({
                 <Link className="info-btn" to="/account/edit">
                   Edit Profile
                 </Link>
+              ) : followLoading ? <div className='info-btn'><i className="fas fa-spinner"></i></div> :
+              (isFollowing ? (
+                <div className="info-btn following-btn" onClick={unFollowUser}>
+                  Following
+                </div>
+              ) : (
+                <div className="info-btn follow-btn" onClick={followUser}>
+                  Follow
+                </div>
+              )))}
+            {/* {isAuthenticated &&
+              (authorization ? (
+                <Link className="info-btn" to="/account/edit">
+                  Edit Profile
+                </Link>
               ) : isFollowing ? (
                 <div className="info-btn following-btn" onClick={unFollowUser}>
                   Following
@@ -178,7 +205,7 @@ const Info = ({
                 <div className="info-btn follow-btn" onClick={followUser}>
                   Follow
                 </div>
-              ))}
+              ))} */}
           </div>
 
           <div className="posts-followers-following-count">
@@ -191,7 +218,7 @@ const Info = ({
                 setFollowersFollowing("Followers");
                 toggleFollowList();
               }}
-            >{`${foundUser.followers.length} followers`}</span>
+            >{`${followersCount} followers`}</span>
             <span
               className={`following-count ${
                 isAuthenticated && "cursor-pointer"
@@ -231,7 +258,7 @@ const Info = ({
               toggleFollowList();
             }}
           >
-            {`${foundUser.followers.length} followers`}
+            {`${followersCount} followers`}
           </span>
           <span
             className="following-count-mobile"
