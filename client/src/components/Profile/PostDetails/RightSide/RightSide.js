@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, Fragment} from "react";
+import axios from "axios";
 import Author from "./Author/Author";
 import CommentsContainer from "./CommentsContainer/CommentsContainer";
 import PostStats from "./PostStats/PostStats";
@@ -7,10 +8,20 @@ import { connect } from "react-redux";
 import "./RightSide.scss";
 
 const RightSide = ({ post, author, authUser, mainPage }) => {
-  const [commentsArray, setCommentsArray] = useState(post.comments)
+  //const [commentsArray, setCommentsArray] = useState(post.comments)
+  const [commentsArray, setCommentsArray] = useState([])
+  const [commentsLoading, setCommentsLoading] = useState(true)
+
+  useEffect(()=>{
+    const postId = post._id ? post._id : post.postId
+    axios.get(`/api/posts/${postId}`).then(res=>{
+      setCommentsArray(res.data.comments)
+      setCommentsLoading(false)
+    })
+  },[])
 
   const addNewComment = (comment, text)=>{
-    setCommentsArray(prev=>[...prev,comment]);
+    setCommentsArray(prev=>[comment, ...prev]);
   }
 
   const profile_page = () => {
@@ -24,24 +35,30 @@ const RightSide = ({ post, author, authUser, mainPage }) => {
 
     return (
       <div className="right-side">
-        <Author
-          image={author.profileImg}
-          username={post.createdByUsername}
-          self={author && author._id === authUser._id}
-          postId={post._id}
-        />
-        <CommentsContainer
-          comments={commentsArray}
-          caption={comment_info}
-          postId={post._id}
-        />
-        <PostStats
-          postId={post._id}
-          likes={post.likes}
-          authUsername={authUser.username}
-          date={post.date}
-        />
-        <WriteComment postId={post._id} image={authUser.profileImg} addNewComment={addNewComment}/>
+        {
+          !commentsLoading && (
+            <Fragment>
+              <Author
+                image={author.profileImg}
+                username={post.createdByUsername}
+                self={author && author._id === authUser._id}
+                postId={post._id}
+              />
+              <CommentsContainer
+                comments={commentsArray}
+                caption={comment_info}
+                postId={post._id}
+              />
+              <PostStats
+                postId={post._id}
+                likes={post.likes}
+                authUsername={authUser.username}
+                date={post.date}
+              />
+              <WriteComment postId={post._id} image={authUser.profileImg} addNewComment={addNewComment}/>
+            </Fragment>
+          )
+        }
       </div>
     );
   };

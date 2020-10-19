@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Comment from "../Comment/Comment";
 import { connect } from "react-redux";
 import "./CommentsContainer.scss";
 
-const CommentsContainer = ({ comments, caption, postId,authUser }) => {
+const CommentsContainer = ({ comments, caption, postId, authUser }) => {
   const [commentsCount, setCommentsCount] = useState(6);
+
+  useEffect(()=>{
+    console.log(postId)
+  },[])
 
   const onClick = () => {
     setCommentsCount((prev) => prev + 6);

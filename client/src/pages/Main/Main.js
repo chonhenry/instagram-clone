@@ -90,7 +90,7 @@ const Main = ({
   };
 
   const showPostDetails = (post) => {
-    // console.log(post);
+    console.log('showPostDetails');
     setCurrentPost(post);
     toggleOnBackdrop();
   };

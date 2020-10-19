@@ -35,7 +35,6 @@ const WriteComment = ({ postId, image, latest, addNewComment,post }) => {
 
   const onChange = (e) => {
     setComment(e.target.value);
-    console.log(e.target.value)
     let height = textareaRef.current.scrollHeight;
 
     if (height <= 18 || comment === "") setTextareaHeight("one-row");
